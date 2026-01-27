@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Express Pressure Clean | Professional Cleaning</title>
+    <link rel="icon" href="data:,">
     <meta name="description" content="Professional pressure washing services for facades, decks and parking lots.">
 
     <!-- Fuentes de Google: Poppins (Títulos) e Inter (Cuerpo) -->
@@ -811,165 +812,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- CHATBOT UI --- */
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 1rem;
-        }
 
-        .chat-btn {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--secondary), var(--primary));
-            color: var(--white);
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: var(--shadow-lg);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .chat-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-window {
-            width: 350px;
-            height: 500px;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chat-window.active {
-            display: flex;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            padding: 1.2rem;
-            color: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .chat-header h4 {
-            color: var(--white);
-            margin: 0;
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .chat-header .close-btn {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-
-        .chat-body {
-            flex: 1;
-            padding: 1rem;
-            overflow-y: auto;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .message {
-            max-width: 80%;
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .message.bot {
-            align-self: flex-start;
-            background: var(--white);
-            border-bottom-left-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            color: var(--text-dark);
-        }
-
-        .message.user {
-            align-self: flex-end;
-            background: var(--secondary);
-            border-bottom-right-radius: 2px;
-            color: var(--primary);
-            color: white;
-            /* Corrección de contraste */
-        }
-
-        .chat-footer {
-            padding: 1rem;
-            background: var(--white);
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .chat-input {
-            flex: 1;
-            padding: 0.8rem;
-            border: 1px solid #eee;
-            border-radius: 20px;
-            font-family: inherit;
-            outline: none;
-            transition: var(--transition);
-        }
-
-        .chat-input:focus {
-            border-color: var(--secondary);
-        }
-
-        .send-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .send-btn:hover {
-            background: var(--secondary);
-        }
 
 
         /* --- FOOTER --- */
@@ -1020,6 +863,160 @@
             .form-side {
                 padding: 2rem;
             }
+        }
+
+        /* AI Assistant Styles */
+        #ai-assistant-container {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        #ai-chat-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            border: none;
+        }
+
+        #ai-chat-btn:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        #ai-chat-window {
+            width: 350px;
+            height: 500px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 1rem;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: var(--transition);
+            transform-origin: bottom right;
+        }
+
+        #ai-chat-window.active {
+            display: flex;
+            animation: chatOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes chatOpen {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .ai-chat-header {
+            padding: 1rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-header h4 {
+            color: white;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            display: inline-block;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.ai {
+            align-self: flex-start;
+            background: white;
+            color: var(--text-dark);
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .ai-chat-input {
+            padding: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .ai-chat-input input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .ai-chat-input button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .ai-chat-input button:hover {
+            background: var(--primary);
+        }
+
+        .typing-indicator {
+            font-size: 0.8rem;
+            color: var(--text-gray);
+            font-style: italic;
+            display: none;
         }
     </style>
 </head>
@@ -1335,34 +1332,7 @@
         </div>
     </section>
 
-    <!-- CHATBOT WIDGET -->
-    <div class="chat-widget">
-        <div class="chat-window" id="chat-window">
-            <div class="chat-header">
-                <div style="display: flex; align-items: center; gap: 0.8rem;">
-                    <i class="fa-solid fa-robot"></i>
-                    <div>
-                        <h4>Express AI</h4>
-                        <span style="font-size: 0.8rem; opacity: 0.8;">Online Assistant</span>
-                    </div>
-                </div>
-                <button class="close-btn" id="close-chat"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            <div class="chat-body" id="chat-body">
-                <!-- Mensajes dinámicos -->
-                <div class="message bot">
-                    Hello! I'm your virtual assistant. Ask me anything about our pressure cleaning services.
-                </div>
-            </div>
-            <div class="chat-footer">
-                <input type="text" class="chat-input" id="chat-input" placeholder="Type your message...">
-                <button class="send-btn" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
-            </div>
-        </div>
-        <button class="chat-btn" id="toggle-chat">
-            <i class="fa-solid fa-message"></i>
-        </button>
-    </div>
+
 
     <!-- FOOTER -->
 
@@ -1377,6 +1347,40 @@
                     class="lang-en">All rights reserved.</span></p>
         </div>
     </footer>
+
+
+    <!-- AI Assistant -->
+    <div id="ai-assistant-container">
+        <div id="ai-chat-window">
+            <div class="ai-chat-header">
+                <h4>
+                    <span class="lang-es">Asistente Express</span>
+                    <span class="lang-en">Express Assistant</span>
+                </h4>
+                <button id="close-chat" style="background:transparent; border:none; color:white; cursor:pointer;"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="ai-chat-messages" id="chat-messages">
+                <div class="message ai">
+                    <span class="lang-es">¡Hola! Soy tu asistente de Express Pressure Clean. ¿En qué puedo ayudarte
+                        hoy?</span>
+                    <span class="lang-en">Hello! I'm your Express Pressure Clean assistant. How can I help you
+                        today?</span>
+                </div>
+            </div>
+            <div id="typing-indicator" class="typing-indicator" style="padding: 0 1rem 0.5rem;">
+                <span class="lang-es">Escribiendo...</span>
+                <span class="lang-en">Typing...</span>
+            </div>
+            <div class="ai-chat-input">
+                <input type="text" id="chat-input" placeholder="Escribe tu duda... / Ask something...">
+                <button id="send-chat"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="ai-chat-btn">
+            <i class="fa-solid fa-robot"></i>
+        </button>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
@@ -1470,127 +1474,121 @@
             style.innerHTML = '.reveal-card.active { opacity: 1 !important; transform: translateY(0) !important; }';
             document.head.appendChild(style);
 
-            /* --- CHATBOT LOGIC --- */
-            const chatBtn = document.getElementById('toggle-chat');
-            const chatWindow = document.getElementById('chat-window');
+            // 5. AI Chat Assistant Logic
+            const chatBtn = document.getElementById('ai-chat-btn');
+            const chatWindow = document.getElementById('ai-chat-window');
             const closeChat = document.getElementById('close-chat');
             const chatInput = document.getElementById('chat-input');
-            const sendBtn = document.getElementById('send-btn');
-            const chatBody = document.getElementById('chat-body');
+            const sendChat = document.getElementById('send-chat');
+            const chatMessages = document.getElementById('chat-messages');
+            const typingIndicator = document.getElementById('typing-indicator');
 
-            let chatSession = null;
+            let aiSession = null;
 
-            // Toggle Chat
-            chatBtn.addEventListener('click', () => {
-                chatWindow.classList.add('active');
-                chatBtn.style.display = 'none';
-                initChatSession();
+            chatBtn.addEventListener('click', async () => {
+                chatWindow.classList.toggle('active');
+                if (chatWindow.classList.contains('active') && !aiSession) {
+                    initAISession();
+                }
             });
 
             closeChat.addEventListener('click', () => {
                 chatWindow.classList.remove('active');
-                chatBtn.style.display = 'flex';
             });
 
-            // Add Message to UI
-            function addMessage(text, sender) {
-                const msgDiv = document.createElement('div');
-                msgDiv.classList.add('message', sender);
-                msgDiv.textContent = text;
-                chatBody.appendChild(msgDiv);
-                chatBody.scrollTop = chatBody.scrollHeight;
-            }
-
-            // Initialize AI Session
-            async function initChatSession() {
-                if (chatSession) return; // Already initialized
-
-                if (!window.ai || !window.ai.languageModel) {
-                    addMessage("System: Your browser does not support the Chrome Prompt API. Please use Chrome Canary or enable the flags.", 'bot');
-                    return;
-                }
-
+            const initAISession = async () => {
                 try {
-                    const capabilities = await window.ai.languageModel.capabilities();
-                    if (capabilities.available === 'no') {
-                        addMessage("System: AI model not available on this device.", 'bot');
+                    // Check for multiple possible namespaces/globals used in different Chrome versions
+                    const aiApi = window.ai?.languageModel || window.model || window.LanguageModel || (typeof LanguageModel !== 'undefined' ? LanguageModel : null);
+
+                    if (!aiApi) {
+                        console.warn("Chrome Prompt API not available in any known namespace.");
                         return;
                     }
 
-                    const systemPrompt = `
-                        You are a helpful customer support assistant for "Express Pressure Clean", a pressure washing business.
-                        Your goal is to answer questions about services (Facades, Roofs, Driveways, Patios), pricing, and booking.
-                        
-                        Business Context:
-                        - Services: Pressure washing for Facades, Driveways, Decks/Patios, Roofs (Soft Wash).
-                        - Location: Madrid and surroundings.
-                        - Contact: +34 912 345 678, info@expresspressureclean.com.
-                        
-                        Rules:
-                        1. Answer strictly about the pressure washing business.
-                        2. If asked about unrelated topics (like sports, politics, math), politely refuse and guide the user back to cleaning services.
-                        3. Detect the user's language (English or Spanish) and respond in the SAME language.
-                        4. Be concise, polite, and professional.
-                    `;
+                    // Some versions use .capabilities(), others might not
+                    if (aiApi.capabilities) {
+                        const available = await aiApi.capabilities();
+                        if (!available || available.available === 'no') {
+                            console.warn("Chrome Prompt API exists but is not available (check flags/download status).");
+                            return;
+                        }
+                    }
 
-                    chatSession = await window.ai.languageModel.create({
-                        systemPrompt: systemPrompt
-                    });
+                    const systemPrompt = `You are a professional assistant for Express Pressure Clean. 
+                    We offer pressure washing for facades, driveways, decks, patios, and roofs (soft wash). 
+                    Our main focus is quality and customer satisfaction. We operate in Madrid and surrounding areas.
+                    Be helpful, polite, and professional. Current language is ${currentLang}. 
+                    Answer in the same language as the user. If they ask about prices, mention they can get a free quote below.`;
 
-                    console.log("AI Session Initialized");
-
-                } catch (error) {
-                    console.error("AI Init Error:", error);
-                    addMessage("System: Error initializing AI.", 'bot');
+                    // Handle different creation methods
+                    if (aiApi.create) {
+                        aiSession = await aiApi.create({
+                            topK: 3,
+                            temperature: 1,
+                            expectedLanguage: currentLang, // Explicitly specify language
+                            initialPrompts: [{ role: 'system', content: systemPrompt }]
+                        });
+                    }
+                } catch (e) {
+                    console.error("Error initializing AI:", e);
                 }
-            }
+            };
 
-            // Handle User Input
-            async function handleUserMessage() {
+            const addMessage = (text, sender) => {
+                const msgDiv = document.createElement('div');
+                msgDiv.className = `message ${sender}`;
+                msgDiv.textContent = text;
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            };
+
+            const handleSend = async () => {
                 const text = chatInput.value.trim();
                 if (!text) return;
 
                 addMessage(text, 'user');
                 chatInput.value = '';
+                typingIndicator.style.display = 'block';
 
-                // Show typing indicator (optional simplified)
-                const loadingId = 'loading-' + Date.now();
-                const loadingDiv = document.createElement('div');
-                loadingDiv.classList.add('message', 'bot');
-                loadingDiv.id = loadingId;
-                loadingDiv.textContent = '...';
-                chatBody.appendChild(loadingDiv);
-                chatBody.scrollTop = chatBody.scrollHeight;
-
-                if (!chatSession) {
-                    // Fallback check if user typed before clicking button (rare but possible)
-                    await initChatSession();
-                    if (!chatSession) {
-                        document.getElementById(loadingId).textContent = "AI not available.";
-                        return;
-                    }
+                if (!aiSession) {
+                    // Fallback if AI is missing
+                    setTimeout(() => {
+                        typingIndicator.style.display = 'none';
+                        const fallbackMsg = currentLang === 'es'
+                            ? "Lo siento, mi sistema de IA está configurado solo para Chrome Canary/Dev con la API habilitada. ¡Pero puedes contactarnos por WhatsApp o llenar el formulario!"
+                            : "I'm sorry, my AI system is only configured for Chrome Canary/Dev with the API enabled. But you can contact us via WhatsApp or fill out the form!";
+                        addMessage(fallbackMsg, 'ai');
+                    }, 1000);
+                    return;
                 }
 
                 try {
-                    // Start streaming response (or prompt)
-                    const stream = chatSession.promptStreaming(text);
+                    const stream = aiSession.promptStreaming(text);
                     let fullResponse = "";
+                    const aiMsgDiv = document.createElement('div');
+                    aiMsgDiv.className = 'message ai';
+                    aiMsgDiv.textContent = "..."; // Initial placeholder
+                    chatMessages.appendChild(aiMsgDiv);
+                    typingIndicator.style.display = 'none';
 
                     for await (const chunk of stream) {
-                        fullResponse = chunk;
-                        document.getElementById(loadingId).textContent = fullResponse;
-                        chatBody.scrollTop = chatBody.scrollHeight;
+                        // Some Prompt API versions return delta, others full string
+                        // Based on user's previous test, it seems to be delta
+                        fullResponse += chunk;
+                        aiMsgDiv.textContent = fullResponse;
+                        chatMessages.scrollTop = chatMessages.scrollHeight;
                     }
-
-                } catch (error) {
-                    console.error("AI Error:", error);
-                    document.getElementById(loadingId).textContent = "Detailed Error: " + error.message;
+                } catch (e) {
+                    console.error("Streaming error:", e);
+                    typingIndicator.style.display = 'none';
+                    addMessage("Hubo un error al procesar tu mensaje. / There was an error processing your message.", "ai");
                 }
-            }
+            };
 
-            sendBtn.addEventListener('click', handleUserMessage);
+            sendChat.addEventListener('click', handleSend);
             chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') handleUserMessage();
+                if (e.key === 'Enter') handleSend();
             });
 
         });
