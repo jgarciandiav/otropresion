@@ -5,41 +5,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Express Pressure Clean | Professional Cleaning</title>
-    <link rel="icon" href="data:,">
-    <meta name="description" content="Professional pressure washing services for facades, decks and parking lots.">
-
-    <!-- Fuentes de Google: Poppins (Títulos) e Inter (Cuerpo) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;700;800&display=swap"
-        rel="stylesheet">
+    <link rel="icon" href="logo.png" type="image/png">
+    <meta name="description" content="Servicios profesionales de lavado a presión para fachadas, estacionamientos, techos y terrazas. Miami y alrededores.">
 
     <!-- FontAwesome para íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- VARIABLES CSS --- */
-        :root {
-            --primary: #0a2463;
-            --primary-light: #3e92cc;
-            --secondary: #00d2ff;
-            --accent: #fb8b24;
-            --accent-hover: #e36414;
-            --white: #ffffff;
-            --light: #f8f9fa;
-            --text-dark: #1a1a1a;
-            --text-gray: #4b5563;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
-            --radius: 16px;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --max-width: 1200px;
-            --glass: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.3);
-        }
+        /* --- IMPORTACIÓN DE FUENTES (Debe preceder a todo) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap');
+        /* --- VARIABLES CSS (PALETA PREMIUM) --- */
+        :root {
+            --primary: #0f172a;       /* Slate 900 (Navy profundo) */
+            --primary-light: #1e293b; /* Slate 800 */
+            --secondary: #0ea5e9;     /* Sky 500 (Cian agua cristalina) */
+            --secondary-rgb: 14, 165, 233;
+            --accent: #f97316;        /* Orange 500 (Acento vibrante) */
+            --accent-hover: #ea580c;  /* Orange 600 */
+            --white: #ffffff;
+            --light: #f8fafc;         /* Slate 50 (Fondo limpio) */
+            --text-dark: #0f172a;     /* Slate 900 */
+            --text-gray: #475569;     /* Slate 600 */
+            --text-light: #94a3b8;    /* Slate 400 */
+            --shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.1);
+            --radius: 24px;           /* Squircle exagerado */
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); /* Curva spring-physics */
+            --max-width: 1280px;
+            --glass: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(15, 23, 42, 0.05);
+
+            /* Alias de compatibilidad para evitar bugs */
+            --primary-color: var(--primary);
+            --secondary-color: var(--secondary);
+            --accent-color: var(--accent);
+        }
 
         /* --- RESET Y BASE --- */
         * {
@@ -60,19 +61,18 @@
             line-height: 1.6;
         }
 
-        h1,
-        h2,
-        h3,
-        h4 {
+        h1, h2, h3, h4 {
             font-family: 'Outfit', sans-serif;
             color: var(--primary);
             font-weight: 800;
-            line-height: 1.1;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
         }
 
         a {
             text-decoration: none;
             color: inherit;
+            transition: var(--transition);
         }
 
         ul {
@@ -85,11 +85,41 @@
             border-radius: var(--radius);
         }
 
-        /* --- UTILIDADES MODERNAS --- */
+        /* --- LOGICA DE IDIOMAS (ROBUSTA) --- */
+        body.english-mode .lang-es,
+        body:not(.english-mode) .lang-en {
+            display: none !important;
+        }
+        body.english-mode .lang-en {
+            display: block !important;
+        }
+        body:not(.english-mode) .lang-es {
+            display: block !important;
+        }
+        
+        /* Soporte para etiquetas inline */
+        span.lang-en {
+            display: inline !important;
+        }
+        span.lang-es {
+            display: inline !important;
+        }
+        body.english-mode span.lang-es,
+        body:not(.english-mode) span.lang-en {
+            display: none !important;
+        }
+        body.english-mode span.lang-en {
+            display: inline !important;
+        }
+        body:not(.english-mode) span.lang-es {
+            display: inline !important;
+        }
+
+        /* --- UTILIDADES PREMIUM --- */
         .glass {
             background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--glass-border);
         }
 
@@ -99,33 +129,15 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .wave-container {
-            position: relative;
-            width: 100%;
-            line-height: 0;
-        }
-
-        .wave-container svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 80px;
-        }
-
-        .wave-top {
-            transform: rotate(180deg);
-        }
-
-        /* --- UTILIDADES --- */
         .container {
-            width: 90%;
+            width: 92%;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
 
         .section-padding {
-            padding: 5rem 0;
+            padding: 8rem 0; /* Espaciado macro holgado */
         }
 
         .text-center {
@@ -133,11 +145,11 @@
         }
 
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
             position: relative;
-            text-transform: uppercase;
-            letter-spacing: -1px;
+            text-transform: capitalize;
+            letter-spacing: -0.03em;
         }
 
         .section-title::after {
@@ -146,191 +158,324 @@
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
+            width: 60px;
             height: 4px;
             background: linear-gradient(90deg, var(--secondary), var(--accent));
-            border-radius: 2px;
+            border-radius: 10px;
         }
 
         .section-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--text-gray);
             max-width: 600px;
-            margin: 0 auto 3rem;
+            margin: 0 auto 4rem;
+            font-weight: 500;
         }
 
-        /* --- LOGICA DE IDIOMAS --- */
-        body.english-mode .lang-es,
-        body:not(.english-mode) .lang-en {
-            display: none;
-        }
-
-        body.english-mode .lang-en {
+        /* Eyebrow Pill Premium */
+        .eyebrow {
             display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            background: rgba(14, 165, 233, 0.08);
+            color: var(--secondary);
+            border: 1px solid rgba(14, 165, 233, 0.15);
+            margin-bottom: 1.5rem;
         }
 
-        body.english-mode h1 .lang-en,
-        body.english-mode h2 .lang-en,
-        body.english-mode h3 .lang-en,
-        body.english-mode p .lang-en,
-        body.english-mode li .lang-en,
-        body.english-mode .section-title .lang-en {
-            display: block;
-        }
-
-        h1 .lang-es,
-        h2 .lang-es,
-        h3 .lang-es,
-        p .lang-es,
-        li .lang-es,
-        .section-title .lang-es {
-            display: block;
-        }
-
-        /* --- BOTONES --- */
+        /* --- BOTONES PREMIUM --- */
         .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2.2rem;
+            font-weight: 700;
             border-radius: 50px;
             cursor: pointer;
             transition: var(--transition);
             border: none;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+        }
+
+        .btn:active {
+            transform: scale(0.97) !important;
         }
 
         .btn-primary {
             background-color: var(--accent);
             color: var(--white);
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(249, 115, 22, 0.3);
         }
 
         .btn-primary:hover {
             background-color: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+            box-shadow: 0 15px 30px -5px rgba(249, 115, 22, 0.45);
         }
 
         .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--white);
-            color: var(--white);
+            background-color: var(--white);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            color: var(--primary);
+            box-shadow: var(--shadow);
         }
 
         .btn-secondary:hover {
-            background-color: var(--white);
-            color: var(--primary-dark);
+            background-color: var(--light);
+            border-color: rgba(15, 23, 42, 0.15);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
         }
 
         /* --- BOTON IDIOMA --- */
         .lang-btn {
-            background: transparent;
-            border: 2px solid #e5e7eb;
-            padding: 0.4rem 1rem;
-            border-radius: 20px;
-            font-weight: 600;
-            color: var(--text-dark);
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            padding: 0.5rem 1.1rem;
+            border-radius: 30px;
+            font-weight: 700;
+            color: var(--primary);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-family: 'Outfit', sans-serif;
         }
 
         .lang-btn:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: rgba(14, 165, 233, 0.05);
         }
 
-        /* --- HEADER --- */
+        /* --- HEADER (FLUID ISLAND) --- */
         header {
-            background-color: transparent;
             position: fixed;
-            top: 0;
+            top: 1.5rem;
             left: 0;
             width: 100%;
             z-index: 1000;
             transition: var(--transition);
-            padding: 1rem 0;
         }
 
-        header.scrolled {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            padding: 0.5rem 0;
-            box-shadow: var(--shadow);
+        header .container {
+            max-width: var(--max-width);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0.75rem 2rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.05);
+            transition: var(--transition);
+        }
+
+        header.scrolled nav {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(15, 23, 42, 0.08);
+            padding: 0.5rem 2rem;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .logo i {
-            color: var(--secondary);
-            font-size: 1.8rem;
+        .logo img {
+            height: 54px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        header.scrolled .logo img {
+            height: 46px;
+        }
+
+        .logo:hover img {
+            transform: scale(1.04);
         }
 
         .nav-links {
-            display: none;
+            display: flex;
+            gap: 2.2rem;
         }
 
-        @media (min-width: 992px) {
-            .nav-links {
-                display: flex;
-                gap: 2rem;
-            }
+        .nav-link {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-gray);
+            position: relative;
+            padding: 0.5rem 0;
+        }
 
-            .nav-link {
-                font-weight: 600;
-                font-size: 0.95rem;
-                transition: var(--transition);
-                position: relative;
-            }
+        .nav-link:hover {
+            color: var(--primary);
+        }
 
-            .nav-link::after {
-                content: '';
-                position: absolute;
-                bottom: -5px;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background: var(--secondary);
-                transition: var(--transition);
-            }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+            border-radius: 10px;
+        }
 
-            .nav-link:hover::after {
-                width: 100%;
-            }
+        .nav-link:hover::after {
+            width: 100%;
         }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
+        }
+
+        /* --- RESPONSIVIDAD HEADER Y MOBILE MENU --- */
+        .mobile-nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 16px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .mobile-nav-toggle span {
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+            border-radius: 2px;
+            transition: var(--transition);
+            transform-origin: left center;
+        }
+
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(-2px, -2px);
+            background-color: var(--white);
+        }
+
+        .mobile-nav-toggle.active span:nth-child(2) {
+            transform: rotate(-45deg) translate(-2px, 2px);
+            background-color: var(--white);
+        }
+
+        .mobile-nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100dvh;
+            background: rgba(15, 23, 42, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .mobile-nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .mobile-nav-link {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--white);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-link {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-link:nth-child(1) { transition-delay: 0.1s; }
+        .mobile-nav-overlay.active .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
+        .mobile-nav-overlay.active .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
+        .mobile-nav-overlay.active .mobile-nav-link:nth-child(4) { transition-delay: 0.4s; }
+
+        @media (max-width: 991px) {
+            header {
+                top: 0.75rem;
+            }
+            nav {
+                padding: 0.6rem 1.5rem;
+                border-radius: 30px;
+            }
+            .nav-links, .header-cta {
+                display: none !important;
+            }
+            .mobile-nav-toggle {
+                display: flex;
+            }
         }
 
         /* --- HERO --- */
         .hero {
             position: relative;
-            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
-            background: radial-gradient(circle at top right, rgba(0, 210, 255, 0.1), transparent),
-                radial-gradient(circle at bottom left, rgba(10, 36, 99, 0.05), transparent);
-            padding-top: 80px;
+            background: radial-gradient(circle at 90% 15%, rgba(14, 165, 233, 0.08), transparent 45%),
+                        radial-gradient(circle at 10% 85%, rgba(15, 23, 42, 0.02), transparent 45%),
+                        #fafbfc;
+            padding-top: 120px;
             overflow: hidden;
         }
 
@@ -343,194 +488,219 @@
 
         @media (min-width: 992px) {
             .hero-content {
-                grid-template-columns: 1.2fr 0.8fr;
+                grid-template-columns: 1.15fr 0.85fr;
             }
         }
 
         .hero-text h1 {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.6rem, 5vw, 3.8rem);
             margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
         }
 
         .hero-text p {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 2.5rem;
             color: var(--text-gray);
-            max-width: 550px;
-        }
-
-        .hero-image {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-image img {
-            width: 100%;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            box-shadow: var(--shadow-lg);
-            animation: morph 8s ease-in-out infinite;
-        }
-
-        @keyframes morph {
-            0% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
-
-            50% {
-                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
-            }
-
-            100% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            }
+            max-width: 580px;
+            line-height: 1.7;
         }
 
         .hero-btns {
             display: flex;
-            gap: 1rem;
+            gap: 1.2rem;
             flex-wrap: wrap;
         }
 
-        @media (min-width: 768px) {
-            .hero h1 {
-                font-size: 3.5rem;
-            }
+        /* Double-Bezel Nested Architecture (Hero Image) */
+        .hero-image-outer {
+            background: rgba(15, 23, 42, 0.02);
+            border: 1px solid rgba(15, 23, 42, 0.04);
+            padding: 12px;
+            border-radius: 36px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        /* --- BENEFICIOS Y ANIMACIONES --- */
+        .hero-image-outer:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(14, 165, 233, 0.15);
+            background: rgba(15, 23, 42, 0.03);
+        }
+
+        .hero-image-inner {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .hero-image-inner img {
+            width: 100%;
+            border-radius: 0;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-image-outer:hover .hero-image-inner img {
+            transform: scale(1.05);
+        }
+
+        /* --- BENEFICIOS (BENTO GRID DIVERSITY) --- */
         .benefits {
-            background-color: var(--bg-light);
+            background-color: var(--white);
         }
 
         .benefits-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(12, 1fr);
             gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Double-Bezel card design */
+        .benefit-card-outer {
+            background: rgba(15, 23, 42, 0.015);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            padding: 8px;
+            border-radius: 32px;
+            transition: var(--transition);
         }
 
         .benefit-card {
             background: var(--white);
             padding: 3rem 2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            text-align: center;
+            border-radius: 24px;
+            height: 100%;
             transition: var(--transition);
-            border: 1px solid rgba(0, 0, 0, 0.03);
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            border: 1px solid rgba(15, 23, 42, 0.02);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
-        .benefit-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transform: scaleX(0);
-            transition: var(--transition);
-        }
-
-        .benefit-card:hover {
-            transform: translateY(-10px);
+        .benefit-card-outer:hover {
+            transform: translateY(-8px);
             box-shadow: var(--shadow-lg);
+            border-color: rgba(14, 165, 233, 0.1);
         }
 
-        .benefit-card:hover::before {
-            transform: scaleX(1);
+        .benefit-card-outer:hover .benefit-card {
+            border-color: rgba(14, 165, 233, 0.05);
+        }
+
+        /* Bento Grid Widths */
+        .bento-7 {
+            grid-column: span 7;
+        }
+
+        .bento-5 {
+            grid-column: span 5;
+        }
+
+        /* Bento Grid Background Diversity */
+        .bento-dark .benefit-card {
+            background: var(--primary);
+            color: var(--white);
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+        }
+
+        .bento-dark h3 {
+            color: var(--white);
+        }
+
+        .bento-dark p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .bento-dark .icon-box {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--secondary);
+        }
+
+        .bento-accent .benefit-card {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(15, 23, 42, 0.02));
+            border: 1px solid rgba(14, 165, 233, 0.1);
         }
 
         .icon-box {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(0, 210, 255, 0.1), rgba(10, 36, 99, 0.1));
-            border-radius: 24px;
+            width: 70px;
+            height: 70px;
+            background: rgba(14, 165, 233, 0.06);
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 2rem;
-            font-size: 2rem;
-            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            color: var(--secondary);
             transition: var(--transition);
         }
 
-        .benefit-card:hover .icon-box {
-            background: var(--primary);
+        .benefit-card-outer:hover .icon-box {
+            background: var(--secondary);
             color: var(--white);
-            transform: rotate(10deg);
+            transform: scale(1.05) rotate(5deg);
         }
 
         .benefit-card h3 {
             margin-bottom: 1rem;
-            font-size: 1.25rem;
+            font-size: 1.4rem;
         }
 
         .benefit-card p {
-            color: var(--text-light);
+            color: var(--text-gray);
             font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 991px) {
+            .bento-7, .bento-5 {
+                grid-column: span 12;
+            }
         }
 
         /* --- LOGICA ANIMACION SCROLL --- */
-        /* Estado inicial: Oculto y a la izquierda */
         .reveal-card {
             opacity: 0;
-            transform: translateX(-100px);
-            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Estado activo: Visible y en posición */
         .reveal-card.active {
-            opacity: 1;
-            transform: translateX(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
-        /* Importante: Combina la posición X=0 con el efecto de subir Y al hacer hover */
-        .reveal-card.active:hover {
-            transform: translateX(0) translateY(-10px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        /* --- ANTES Y DESPUES (REDiseñado) --- */
+        .comparison-section {
+            background: #fafbfc;
         }
 
-        /* Retrasos para efecto cascada */
-        .benefit-card:nth-child(1) {
-            transition-delay: 0.1s;
-        }
-
-        .benefit-card:nth-child(2) {
-            transition-delay: 0.3s;
-        }
-
-        .benefit-card:nth-child(3) {
-            transition-delay: 0.5s;
-        }
-
-        .benefit-card:nth-child(4) {
-            transition-delay: 0.7s;
-        }
-
-        /* --- ANTES Y DESPUES SLIDER --- */
         .comparison-slider {
             position: relative;
             width: 100%;
-            max-width: 800px;
-            margin: 4rem auto;
+            max-width: 850px;
+            margin: 0 auto;
             aspect-ratio: 16/9;
             overflow: hidden;
             border-radius: var(--radius);
             box-shadow: var(--shadow-lg);
+            background-color: var(--primary);
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .comparison-slider img {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .comparison-slider img.before-image-base {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 0;
+            display: block;
         }
 
-        .comparison-slider .before-image {
+        .comparison-slider .after-image-overlay {
             position: absolute;
             top: 0;
             left: 0;
@@ -538,9 +708,11 @@
             height: 100%;
             z-index: 1;
             border-right: 3px solid var(--white);
+            background-repeat: no-repeat;
+            background-position: left center;
         }
 
-        .comparison-slider .slider-handle {
+        .comparison-slider .slider-divider {
             position: absolute;
             top: 0;
             left: 50%;
@@ -552,36 +724,87 @@
             transform: translateX(-50%);
         }
 
-        .slider-handle::after {
-            content: '↔';
+        .comparison-slider .slider-handle {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 40px;
-            height: 40px;
+            width: 46px;
+            height: 46px;
             background: var(--white);
             color: var(--primary);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            box-shadow: var(--shadow);
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            border: 3px solid var(--secondary);
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* --- GALERÍA --- */
+        .comparison-slider:hover .slider-handle {
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Slider tags */
+        .slider-tag {
+            position: absolute;
+            bottom: 1.5rem;
+            padding: 0.5rem 1.1rem;
+            border-radius: 30px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 3;
+            pointer-events: none;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .before-tag {
+            right: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--white);
+        }
+
+        .after-tag {
+            left: 1.5rem;
+            background: rgba(14, 165, 233, 0.85);
+            color: var(--white);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- GALERÍA (ASIMÉTRICA PREMIUM) --- */
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item-outer {
+            background: rgba(15, 23, 42, 0.01);
+            border: 1px solid rgba(15, 23, 42, 0.03);
+            padding: 8px;
+            border-radius: 28px;
+            transition: var(--transition);
         }
 
         .gallery-item {
             position: relative;
-            border-radius: var(--radius);
+            border-radius: 20px;
             overflow: hidden;
-            aspect-ratio: 1/1;
+            aspect-ratio: 16/13;
+            background-color: var(--primary-light);
+        }
+
+        .gallery-item-outer:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(14, 165, 233, 0.1);
         }
 
         .gallery-item img {
@@ -591,17 +814,15 @@
             transition: var(--transition);
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.1);
+        .gallery-item-outer:hover img {
+            transform: scale(1.06);
         }
 
         .gallery-overlay {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
+            inset: 0;
             padding: 2rem;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent 70%);
             color: var(--white);
             opacity: 0;
             transition: var(--transition);
@@ -610,27 +831,30 @@
             justify-content: flex-end;
         }
 
-        .gallery-item:hover .gallery-overlay {
+        .gallery-item-outer:hover .gallery-overlay {
             opacity: 1;
         }
 
-        .tag {
-            background-color: var(--accent-color);
+        .gallery-overlay h3 {
             color: var(--white);
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
         }
 
-        /* --- TESTIMONIOS --- */
+        /* Bento Grid Gallery classes */
+        .gal-col-7 { grid-column: span 7; }
+        .gal-col-5 { grid-column: span 5; }
+
+        @media (max-width: 768px) {
+            .gal-col-7, .gal-col-5 {
+                grid-column: span 12;
+            }
+        }
+
+        /* --- TESTIMONIOS (GRID EDITORIAL) --- */
         .testimonials {
-            background: linear-gradient(rgba(10, 36, 99, 0.95), rgba(10, 36, 99, 0.9)), url('fachada.png') center/cover;
+            background: linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.94)), url('fachada.png') center/cover;
             color: var(--white);
-            text-align: center;
         }
 
         .testimonials .section-title {
@@ -648,91 +872,109 @@
         .reviews-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
-        .review-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 3rem 2rem;
-            border-radius: var(--radius);
-            color: var(--white);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        /* Review Card Bezel */
+        .review-card-outer {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 6px;
+            border-radius: 28px;
             transition: var(--transition);
         }
 
-        .review-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
+        .review-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem 2.2rem;
+            border-radius: 22px;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .review-card-outer:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(14, 165, 233, 0.2);
         }
 
         .stars {
             color: var(--accent);
             margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            letter-spacing: 2px;
         }
 
         .review-text {
             font-style: italic;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             margin-bottom: 2rem;
-            line-height: 1.8;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
         }
 
-        .reviewer-info {
+        .reviewer {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.2rem;
         }
 
-        .reviewer-info strong {
+        .reviewer-name {
             font-family: 'Outfit', sans-serif;
             font-size: 1.1rem;
-            color: var(--text-dark);
+            font-weight: 700;
+            color: var(--white);
         }
 
-        .reviewer-info span {
-            display: block;
-            font-weight: 400;
-            font-size: 0.9rem;
+        .reviewer-location {
+            font-size: 0.85rem;
             color: var(--text-light);
+            font-weight: 500;
         }
 
         .quote-icon {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            font-size: 3rem;
-            color: rgba(0, 86, 179, 0.05);
+            bottom: 2rem;
+            right: 2rem;
+            font-size: 3.5rem;
+            color: rgba(255, 255, 255, 0.03);
+            pointer-events: none;
         }
 
-        /* --- SECCIÓN CONTACTO --- */
+        /* --- CONTACT SECCIÓN (HIGH-END) --- */
         .contact-section {
             background-color: var(--light);
-            position: relative;
         }
 
         .contact-wrapper {
             display: grid;
             grid-template-columns: 1fr;
             background: var(--white);
-            border-radius: 24px;
+            border-radius: var(--radius);
             box-shadow: var(--shadow-lg);
             overflow: hidden;
+            border: 1px solid rgba(15, 23, 42, 0.04);
         }
 
         @media (min-width: 992px) {
             .contact-wrapper {
-                grid-template-columns: 0.8fr 1.2fr;
+                grid-template-columns: 0.85fr 1.15fr;
             }
         }
 
         .contact-info-side {
             background: var(--primary);
             color: var(--white);
-            padding: 4rem;
+            padding: 4.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -740,95 +982,109 @@
 
         .contact-info-side h3 {
             color: var(--white);
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
         }
 
         .contact-info-side p {
-            margin-bottom: 2.5rem;
-            opacity: 0.8;
+            margin-bottom: 3rem;
+            opacity: 0.75;
+            font-size: 1.05rem;
         }
 
         .contact-info-list li {
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.05rem;
         }
 
         .contact-info-list i {
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            width: 46px;
+            height: 46px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--secondary);
+            font-size: 1.1rem;
         }
 
         .form-side {
-            padding: 4rem;
+            padding: 4.5rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            margin-bottom: 0.6rem;
+            font-weight: 700;
             color: var(--primary);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-family: 'Outfit', sans-serif;
         }
 
         .form-control {
             width: 100%;
-            padding: 1rem 1.2rem;
-            border: 2px solid #edf2f7;
-            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 16px;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: var(--transition);
-            background: #f8fafc;
+            background: var(--light);
+            color: var(--primary);
         }
 
         .form-control:focus {
             border-color: var(--secondary);
             background: var(--white);
             outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.12);
         }
 
         .btn-submit {
             width: 100%;
             padding: 1.2rem;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-
-
+        @media (max-width: 768px) {
+            .contact-info-side, .form-side {
+                padding: 3rem 2rem;
+            }
+            .contact-info-side {
+                text-align: center;
+            }
+            .contact-info-list li {
+                justify-content: center;
+            }
+        }
 
         /* --- FOOTER --- */
         footer {
             background-color: #0b1120;
-            color: #9ca3af;
-            padding: 2rem 0;
+            color: #94a3b8;
+            padding: 4rem 0;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         footer .social-icons {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1rem;
+            gap: 1.8rem;
+            margin-bottom: 1.8rem;
         }
 
         footer .social-icons a {
@@ -838,39 +1094,16 @@
         }
 
         footer .social-icons a:hover {
-            color: var(--secondary-color);
+            color: var(--secondary);
+            transform: translateY(-2px);
         }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .contact-info-side {
-                padding: 2rem;
-                text-align: center;
-            }
-
-            .contact-info-side li {
-                justify-content: center;
-            }
-
-            .form-side {
-                padding: 2rem;
-            }
-        }
-
-        /* AI Assistant Styles */
+        /* --- ASISTENTE DE IA (REAL GLASSMORPHISM) --- */
         #ai-assistant-container {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 2000;
+            z-index: 99;
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -887,43 +1120,43 @@
             justify-content: center;
             font-size: 1.5rem;
             cursor: pointer;
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.25);
             transition: var(--transition);
             border: none;
         }
 
         #ai-chat-btn:hover {
-            transform: scale(1.1) rotate(5deg);
+            transform: scale(1.08) rotate(5deg);
         }
 
         #ai-chat-window {
-            width: 350px;
-            height: 500px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
-            margin-bottom: 1rem;
+            width: 360px;
+            height: 520px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg), 0 20px 50px -15px rgba(15, 23, 42, 0.2);
+            margin-bottom: 1.2rem;
             display: none;
             flex-direction: column;
             overflow: hidden;
             transition: var(--transition);
             transform-origin: bottom right;
+            border: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         #ai-chat-window.active {
             display: flex;
-            animation: chatOpen 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: chatOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         @keyframes chatOpen {
             from {
                 opacity: 0;
-                transform: scale(0.8) translateY(20px);
+                transform: scale(0.85) translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
@@ -931,23 +1164,25 @@
         }
 
         .ai-chat-header {
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             background: var(--primary);
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-top-left-radius: 22px;
+            border-top-right-radius: 22px;
         }
 
         .ai-chat-header h4 {
             color: white;
             margin: 0;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
 
         .ai-chat-messages {
             flex: 1;
-            padding: 1rem;
+            padding: 1.2rem;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
@@ -956,14 +1191,13 @@
 
         .message {
             max-width: 85%;
-            padding: 0.8rem 1rem;
-            border-radius: 15px;
+            padding: 0.8rem 1.1rem;
+            border-radius: 18px;
             font-size: 0.95rem;
             line-height: 1.5;
             word-wrap: break-word;
             overflow-wrap: break-word;
             white-space: pre-wrap;
-            display: inline-block;
         }
 
         .message.user {
@@ -971,6 +1205,7 @@
             background: var(--primary);
             color: white;
             border-bottom-right-radius: 2px;
+            box-shadow: 0 4px 10px rgba(15, 23, 42, 0.1);
         }
 
         .message.ai {
@@ -978,34 +1213,47 @@
             background: white;
             color: var(--text-dark);
             border-bottom-left-radius: 2px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 3px 8px rgba(15, 23, 42, 0.04);
+            border: 1px solid rgba(15, 23, 42, 0.03);
         }
 
         .ai-chat-input {
-            padding: 1rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 1.2rem;
+            border-top: 1px solid rgba(15, 23, 42, 0.05);
             display: flex;
-            gap: 0.5rem;
+            gap: 0.6rem;
+            background: rgba(255, 255, 255, 0.5);
         }
 
         .ai-chat-input input {
             flex: 1;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 0.5rem 1rem;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            border-radius: 30px;
+            padding: 0.6rem 1.2rem;
             outline: none;
             font-family: inherit;
+            font-size: 0.9rem;
+            background: var(--light);
+            transition: var(--transition);
+        }
+
+        .ai-chat-input input:focus {
+            border-color: var(--secondary);
+            background: var(--white);
         }
 
         .ai-chat-input button {
             background: var(--secondary);
             color: white;
             border: none;
-            width: 35px;
-            height: 35px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             cursor: pointer;
             transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .ai-chat-input button:hover {
@@ -1017,30 +1265,26 @@
             color: var(--text-gray);
             font-style: italic;
             display: none;
+            margin-left: 0.5rem;
         }
     </style>
 </head>
 
-<body class="">
+<body>
 
     <!-- HEADER -->
     <header id="header">
         <div class="container">
             <nav>
                 <a href="#" class="logo">
-                    <i class="fa-solid fa-droplet"></i>
-                    <span>EXPRESS <span style="font-weight: 300; color: var(--text-gray);">PRESSURE</span></span>
+                    <img src="logo.png" alt="Express Pressure Clean">
                 </a>
 
                 <ul class="nav-links">
-                    <li><a href="#inicio" class="nav-link"><span class="lang-es">Inicio</span><span
-                                class="lang-en">Home</span></a></li>
-                    <li><a href="#beneficios" class="nav-link"><span class="lang-es">Servicios</span><span
-                                class="lang-en">Services</span></a></li>
-                    <li><a href="#galeria" class="nav-link"><span class="lang-es">Galería</span><span
-                                class="lang-en">Gallery</span></a></li>
-                    <li><a href="#contacto" class="nav-link"><span class="lang-es">Contacto</span><span
-                                class="lang-en">Contact</span></a></li>
+                    <li><a href="#inicio" class="nav-link"><span class="lang-es">Inicio</span><span class="lang-en">Home</span></a></li>
+                    <li><a href="#beneficios" class="nav-link"><span class="lang-es">Servicios</span><span class="lang-en">Services</span></a></li>
+                    <li><a href="#galeria" class="nav-link"><span class="lang-es">Galería</span><span class="lang-en">Gallery</span></a></li>
+                    <li><a href="#contacto" class="nav-link"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a></li>
                 </ul>
 
                 <div class="header-actions">
@@ -1051,280 +1295,366 @@
                     <a href="https://wa.me/123456789" class="btn btn-primary header-cta">
                         <span class="lang-es">WhatsApp</span><span class="lang-en">Chat Now</span>
                     </a>
+                    <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
+                        <span></span>
+                        <span></span>
+                    </button>
                 </div>
             </nav>
         </div>
     </header>
 
+    <!-- MOBILE NAVIGATION OVERLAY -->
+    <div class="mobile-nav-overlay" id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#inicio" class="mobile-nav-link"><span class="lang-es">Inicio</span><span class="lang-en">Home</span></a></li>
+            <li><a href="#beneficios" class="mobile-nav-link"><span class="lang-es">Servicios</span><span class="lang-en">Services</span></a></li>
+            <li><a href="#galeria" class="mobile-nav-link"><span class="lang-es">Galería</span><span class="lang-en">Gallery</span></a></li>
+            <li><a href="#contacto" class="mobile-nav-link"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a></li>
+        </ul>
+    </div>
+
     <!-- HERO -->
     <section id="inicio" class="hero">
         <div class="container hero-content">
-            <div class="hero-text">
-                <span class="gradient-text" style="font-weight: 800; text-transform: uppercase; letter-spacing: 2px;">
-                    <span class="lang-es">Limpieza Profesional</span><span class="lang-en">Professional Cleaning</span>
+            <div class="hero-text reveal-card">
+                <span class="eyebrow">
+                    <span class="lang-es">Limpieza de Alta Gama</span><span class="lang-en">Premium Clean</span>
                 </span>
                 <h1>
-                    <span class="lang-es">Hacemos que tu propiedad <span class="gradient-text">brille como
-                            nueva</span></span>
+                    <span class="lang-es">Hacemos que tu propiedad <span class="gradient-text">brille como nueva</span></span>
                     <span class="lang-en">Make your property <span class="gradient-text">shine like new</span></span>
                 </h1>
                 <p>
-                    <span class="lang-es">Servicios especializados de lavado a presión para casas y negocios. Resultados
-                        garantizados con tecnología de punta.</span>
-                    <span class="lang-en">Specialized pressure washing services for homes and businesses. Guaranteed
-                        results with state-of-the-art technology.</span>
+                    <span class="lang-es">Servicios exclusivos de lavado a presión para residencias y negocios. Devolvemos el valor y esplendor a tus fachadas y calzadas con tecnología avanzada.</span>
+                    <span class="lang-en">Exclusive pressure washing services for homes and businesses. We restore value and splendor to your facades and driveways with advanced tech.</span>
                 </p>
                 <div class="hero-btns">
                     <a href="#contacto" class="btn btn-primary">
-                        <span class="lang-es">Solicita Presupuesto</span><span class="lang-en">Get a Free Quote</span>
+                        <span class="lang-es">Solicitar Presupuesto</span><span class="lang-en">Get a Free Quote</span>
                     </a>
-                    <a href="#galeria" class="btn btn-outline"
-                        style="border: 2px solid var(--primary); color: var(--primary);">
+                    <a href="#galeria" class="btn btn-secondary">
                         <span class="lang-es">Ver Trabajos</span><span class="lang-en">View Our Work</span>
                     </a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="fachada.png" alt="Pressure Washing">
+            
+            <!-- Double-Bezel nested architecture for hero image -->
+            <div class="hero-image-outer reveal-card" style="transition-delay: 0.2s;">
+                <div class="hero-image-inner">
+                    <img src="fachada.png" alt="Pressure Washing Fachada">
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="wave-container">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-            <path fill="#ffffff" fill-opacity="1"
-                d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
-            </path>
-        </svg>
-    </div>
-
-    <!-- BENEFICIOS -->
-    <section id="beneficios" class="section-padding bg-white" style="background: var(--white);">
+    <!-- BENEFICIOS (ASYMMETRIC BENTO GRID DIVERSITY) -->
+    <section id="beneficios" class="section-padding benefits">
         <div class="container">
-            <div class="text-center">
+            <div class="text-center reveal-card">
                 <h2 class="section-title">
                     <span class="lang-es">Nuestros Servicios</span><span class="lang-en">Our Services</span>
                 </h2>
                 <p class="section-subtitle">
-                    <span class="lang-es">Soluciones profesionales para cada rincón de tu propiedad.</span>
-                    <span class="lang-en">Professional solutions for every corner of your property.</span>
+                    <span class="lang-es">Soluciones de limpieza profesional y cuidado detallado para cada superficie.</span>
+                    <span class="lang-en">Professional cleaning solutions and meticulous care for every surface.</span>
                 </p>
             </div>
+            
             <div class="benefits-grid">
-                <div class="benefit-card reveal-card">
-                    <div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div>
-                    <h3><span class="lang-es">Fachadas</span><span class="lang-en">Facades</span></h3>
-                    <p><span class="lang-es">Eliminamos moho, suciedad y manchas profundas de cualquier tipo de
-                            pared.</span><span class="lang-en">We remove mold, dirt, and deep stains from any type of
-                            wall.</span></p>
+                <!-- Card 1 (Span 7) - Standard Glass Card -->
+                <div class="benefit-card-outer bento-7 reveal-card" style="transition-delay: 0.1s;">
+                    <div class="benefit-card">
+                        <div class="icon-box"><i class="fa-solid fa-house-chimney"></i></div>
+                        <div>
+                            <h3><span class="lang-es">Limpieza de Fachadas</span><span class="lang-en">Facade Siding</span></h3>
+                            <p><span class="lang-es">Eliminamos moho, hollín y manchas profundas en estuco, ladrillo, piedra o madera exterior. Devolvemos el color original protegiendo el material de forma meticulosa.</span><span class="lang-en">We remove mold, soot, and deep stains on stucco, brick, stone, or siding. We restore the original color while meticulously protecting the material.</span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="benefit-card reveal-card">
-                    <div class="icon-box"><i class="fa-solid fa-car"></i></div>
-                    <h3><span class="lang-es">Estacionamientos</span><span class="lang-en">Driveways</span></h3>
-                    <p><span class="lang-es">Limpieza profunda de concreto y asfalto, eliminando manchas de
-                            aceite.</span><span class="lang-en">Deep cleaning of concrete and asphalt, removing oil
-                            stains.</span></p>
+
+                <!-- Card 2 (Span 5) - Dark Luxury Card -->
+                <div class="benefit-card-outer bento-5 bento-dark reveal-card" style="transition-delay: 0.2s;">
+                    <div class="benefit-card">
+                        <div class="icon-box"><i class="fa-solid fa-car"></i></div>
+                        <div>
+                            <h3><span class="lang-es">Aceras y Calzadas</span><span class="lang-en">Driveways & Sidewalks</span></h3>
+                            <p><span class="lang-es">Limpieza a fondo de concreto y asfalto. Eliminación de manchas de grasa, aceite de motor rebelde, óxido y marcas de neumáticos para un acceso impecable.</span><span class="lang-en">Deep cleaning of concrete and asphalt. Removal of stubborn motor oil, grease stains, rust, and tire marks for an immaculate entrance.</span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="benefit-card reveal-card">
-                    <div class="icon-box"><i class="fa-solid fa-umbrella-beach"></i></div>
-                    <h3><span class="lang-es">Terrazas y Patios</span><span class="lang-en">Decks & Patios</span></h3>
-                    <p><span class="lang-es">Restauramos el color original de tu madera o piedra exterior.</span><span
-                            class="lang-en">We restore the original color of your exterior wood or stone.</span></p>
+
+                <!-- Card 3 (Span 5) - Standard Glass Card -->
+                <div class="benefit-card-outer bento-5 reveal-card" style="transition-delay: 0.3s;">
+                    <div class="benefit-card">
+                        <div class="icon-box"><i class="fa-solid fa-umbrella-beach"></i></div>
+                        <div>
+                            <h3><span class="lang-es">Terrazas y Patios</span><span class="lang-en">Decks & Patios</span></h3>
+                            <p><span class="lang-es">Restauramos la madera, piedra y compuestos en zonas exteriores. Eliminamos el tono grisáceo y el moho resbaladizo para recuperar el brillo y seguridad de tus zonas de ocio.</span><span class="lang-en">We restore wood, stone, and composite decks. We remove slippery mold and gray layers to recover the shine and safety of your outdoor leisure zones.</span></p>
+                        </div>
+                    </div>
                 </div>
-                <div class="benefit-card reveal-card">
-                    <div class="icon-box"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
-                    <h3><span class="lang-es">Techos</span><span class="lang-en">Roofs</span></h3>
-                    <p><span class="lang-es">Lavado suave (soft wash) que protege tus tejas mientras las deja
-                            impecables.</span><span class="lang-en">Soft wash that protects your shingles while leaving
-                            them spotless.</span></p>
+
+                <!-- Card 4 (Span 7) - Delicate Gradient Accent Card -->
+                <div class="benefit-card-outer bento-7 bento-accent reveal-card" style="transition-delay: 0.4s;">
+                    <div class="benefit-card">
+                        <div class="icon-box"><i class="fa-solid fa-arrow-up-from-bracket"></i></div>
+                        <div>
+                            <h3><span class="lang-es">Techos y Tejas (Soft Wash)</span><span class="lang-en">Roofs & Shingles (Soft Wash)</span></h3>
+                            <p><span class="lang-es">Lavado de baja presión con detergentes biodegradables especiales. Elimina las destructivas microalgas negras y moho sin dañar ni un milímetro de las tejas o su impermeabilización.</span><span class="lang-en">Low-pressure washing using specialized biodegradable detergents. Safely removes black microalgae and lichen without causing any friction damage to shingles or tiles.</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ANTES Y DESPUES (NUEVO IMPACTO) -->
-    <section class="section-padding" style="background: var(--light);">
+    <!-- ANTES Y DESPUES (REDiseñado con spring hover y drag) -->
+    <section class="section-padding comparison-section">
         <div class="container">
-            <div class="text-center">
+            <div class="text-center reveal-card">
                 <h2 class="section-title">
-                    <span class="lang-es">Resultados Reales</span><span class="lang-en">Real Results</span>
+                    <span class="lang-es">Transformaciones Reales</span><span class="lang-en">Real Transformations</span>
                 </h2>
                 <p class="section-subtitle">
-                    <span class="lang-es">Desliza para ver la transformación.</span>
-                    <span class="lang-en">Slide to see the transformation.</span>
+                    <span class="lang-es">Desliza el cursor o arrastra en móvil para presenciar el impacto de nuestro trabajo.</span>
+                    <span class="lang-en">Slide the cursor or drag on mobile to witness the true impact of our cleaning.</span>
                 </p>
             </div>
 
-            <div class="comparison-slider" id="before-after">
-                <img src="Driveway.png" alt="Before (Dirty)" style="width: 100%;">
-                <div class="before-image"
-                    style="background-image: url('Drivewayclean.png'); background-repeat: no-repeat;">
+            <!-- Double-Bezel outer for comparison slider -->
+            <div class="hero-image-outer reveal-card" style="max-width: 850px; margin: 0 auto; padding: 10px;">
+                <div class="comparison-slider" id="before-after">
+                    <!-- Dirty Image (Before) as Base -->
+                    <img src="Driveway.png" alt="Before (Dirty)" class="before-image-base">
+                    
+                    <!-- Clean Image (After) as Overlay -->
+                    <div class="after-image-overlay" style="background-image: url('Drivewayclean.png');"></div>
+                    
+                    <!-- Divider line & handle -->
+                    <div class="slider-divider">
+                        <div class="slider-handle">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                        </div>
+                    </div>
+
+                    <!-- Translated Tags -->
+                    <span class="slider-tag before-tag">
+                        <span class="lang-es">Antes</span><span class="lang-en">Before</span>
+                    </span>
+                    <span class="slider-tag after-tag">
+                        <span class="lang-es">Después</span><span class="lang-en">After</span>
+                    </span>
                 </div>
-                <div class="slider-handle"></div>
             </div>
         </div>
     </section>
 
-    <!-- GALERÍA -->
+    <!-- GALERÍA (ASIMÉTRICA PREMIUM) -->
     <section id="galeria" class="section-padding" style="background: var(--white);">
         <div class="container">
-            <div class="text-center">
+            <div class="text-center reveal-card">
                 <h2 class="section-title">
-                    <span class="lang-es">Nuestro Trabajo</span><span class="lang-en">Our Work</span>
+                    <span class="lang-es">Nuestros Trabajos</span><span class="lang-en">Our Work Gallery</span>
                 </h2>
+                <p class="section-subtitle">
+                    <span class="lang-es">Muestra fotográfica de acabados impecables en diferentes tipos de estructuras.</span>
+                    <span class="lang-en">Photographic sample of impeccable finishes on different structures.</span>
+                </p>
             </div>
+            
             <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="fachada.png" alt="Gallery 1">
-                    <div class="gallery-overlay">
-                        <h3><span class="lang-es">Limpieza Residencial</span><span class="lang-en">Residential
-                                Cleaning</span></h3>
+                <!-- Item 1 (Span 7) -->
+                <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.1s;">
+                    <div class="gallery-item">
+                        <img src="fachada.png" alt="Limpieza Residencial Fachada">
+                        <div class="gallery-overlay">
+                            <h3><span class="lang-es">Limpieza de Fachada Completa</span><span class="lang-en">Complete Facade Washing</span></h3>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="limpiando techo.png" alt="Gallery 2">
-                    <div class="gallery-overlay">
-                        <h3><span class="lang-es">Mantenimiento de Techos</span><span class="lang-en">Roof
-                                Maintenance</span></h3>
+
+                <!-- Item 2 (Span 5) -->
+                <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.2s;">
+                    <div class="gallery-item">
+                        <img src="limpiando techo.png" alt="Mantenimiento Techos">
+                        <div class="gallery-overlay">
+                            <h3><span class="lang-es">Mantenimiento y Lavado de Techo</span><span class="lang-en">Roof Maintenance & Washing</span></h3>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="Driveway.png" alt="Gallery 3">
-                    <div class="gallery-overlay">
-                        <h3><span class="lang-es">Lavado de Concreto</span><span class="lang-en">Concrete Washing</span>
-                        </h3>
+
+                <!-- Item 3 (Span 5) -->
+                <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.3s;">
+                    <div class="gallery-item">
+                        <img src="Driveway.png" alt="Lavado Concreto Aceras">
+                        <div class="gallery-overlay">
+                            <h3><span class="lang-es">Lavado de Hormigón de Entrada</span><span class="lang-en">Driveway Concrete Power Wash</span></h3>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="cleaning office.png" alt="Gallery 4">
-                    <div class="gallery-overlay">
-                        <h3><span class="lang-es">Servicios Comerciales</span><span class="lang-en">Commercial
-                                Services</span></h3>
+
+                <!-- Item 4 (Span 7) -->
+                <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.4s;">
+                    <div class="gallery-item">
+                        <img src="cleaning office.png" alt="Servicios Limpieza Comercial">
+                        <div class="gallery-overlay">
+                            <h3><span class="lang-es">Edificios y Oficinas Comerciales</span><span class="lang-en">Commercial Offices & Buildings</span></h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- TESTIMONIOS -->
+    <!-- TESTIMONIOS (GRID EDITORIAL PREMIUM) -->
     <section id="testimonios" class="section-padding testimonials">
         <div class="container">
-            <h2 class="section-title">
-                <span class="lang-es">Lo que dicen nuestros clientes</span><span class="lang-en">What Our Clients
-                    Say</span>
-            </h2>
-            <p class="section-subtitle">
-                <span class="lang-es">La satisfacción de nuestros vecinos es nuestra mejor carta de presentación.</span>
-                <span class="lang-en">Our neighbors' satisfaction is our best presentation card.</span>
-            </p>
+            <div class="text-center reveal-card">
+                <h2 class="section-title">
+                    <span class="lang-es">Opiniones con Valor</span><span class="lang-en">What Our Clients Say</span>
+                </h2>
+                <p class="section-subtitle">
+                    <span class="lang-es">Garantizamos una experiencia de limpieza impecable. Descubre la opinión de nuestros vecinos.</span>
+                    <span class="lang-en">We guarantee an outstanding cleaning experience. Hear from our neighbors.</span>
+                </p>
+            </div>
+            
             <div class="reviews-grid">
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-icon"></i>
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i></div>
-                    <p class="review-text"><span class="lang-es">“Mi fachada quedó como nueva, muy profesionales y
-                            puntuales. Se nota que usan buena maquinaria.”</span><span class="lang-en">“My facade looks
-                            like new, very professional and punctual. You can tell they use good machinery.”</span></p>
-                    <div class="reviewer">Laura G.<span>Madrid</span></div>
+                <!-- Card 1 -->
+                <div class="review-card-outer reveal-card" style="transition-delay: 0.1s;">
+                    <div class="review-card">
+                        <div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="review-text">
+                                <span class="lang-es">“Mi fachada de piedra caliza quedó como el primer día. El equipo fue muy puntual, profesional y cuidó meticulosamente mis arbustos.”</span>
+                                <span class="lang-en">“My limestone facade looks like day one. The team was extremely punctual, professional, and took meticulous care of my bushes.”</span>
+                            </p>
+                        </div>
+                        <div class="reviewer">
+                            <span class="reviewer-name">Laura G.</span>
+                            <span class="reviewer-location">Miami</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-icon"></i>
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i></div>
-                    <p class="review-text"><span class="lang-es">“Increíble el trabajo en el patio de mi restaurante.
-                            Manchas de grasa que años nadie pudo quitar desaparecieron.”</span><span
-                            class="lang-en">“Incredible work on my restaurant patio. Grease stains that no one could
-                            remove for years disappeared.”</span></p>
-                    <div class="reviewer">Carlos M.<span>Barcelona</span></div>
+
+                <!-- Card 2 -->
+                <div class="review-card-outer reveal-card" style="transition-delay: 0.2s;">
+                    <div class="review-card">
+                        <div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="review-text">
+                                <span class="lang-es">“Increíble trabajo en la terraza exterior de mi restaurante. Manchas de grasa acumuladas por años desaparecieron en una tarde. Total confianza.”</span>
+                                <span class="lang-en">“Incredible work on my restaurant's outdoor terrace. Grease stains accumulated over years vanished in an afternoon. High trust.”</span>
+                            </p>
+                        </div>
+                        <div class="reviewer">
+                            <span class="reviewer-name">Carlos M.</span>
+                            <span class="reviewer-location">Miami Beach</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                    </div>
                 </div>
-                <div class="review-card">
-                    <i class="fa-solid fa-quote-right quote-icon"></i>
-                    <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                            class="fa-solid fa-star-half-stroke"></i></div>
-                    <p class="review-text"><span class="lang-es">“Servicio excelente y precio justo. El equipo fue muy
-                            cuidadoso con mis plantas. Totalmente recomendado.”</span><span class="lang-en">“Excellent
-                            service and fair price. The team was very careful with my plants. Highly
-                            recommended.”</span></p>
-                    <div class="reviewer">Ana R.<span>Valencia</span></div>
+
+                <!-- Card 3 -->
+                <div class="review-card-outer reveal-card" style="transition-delay: 0.3s;">
+                    <div class="review-card">
+                        <div>
+                            <div class="stars">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <p class="review-text">
+                                <span class="lang-es">“Lavaron el tejado usando soft wash. Explicaron todo el proceso antes, usaron maquinaria excelente y el precio fue sumamente justo.”</span>
+                                <span class="lang-en">“They washed the roof using soft wash. They explained the whole process beforehand, used great gear, and the pricing was super fair.”</span>
+                            </p>
+                        </div>
+                        <div class="reviewer">
+                            <span class="reviewer-name">Ana R.</span>
+                            <span class="reviewer-location">Coral Gables</span>
+                        </div>
+                        <i class="fa-solid fa-quote-right quote-icon"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CONTACTO -->
-    <section id="contacto" class="contact-section">
+    <!-- CONTACTO (HIGH END FORM) -->
+    <section id="contacto" class="section-padding contact-section">
         <div class="container">
-            <div class="contact-wrapper">
+            <div class="contact-wrapper reveal-card">
                 <div class="contact-info-side">
                     <h3>
-                        <span class="lang-es">¡Recupera el brillo de tu propiedad hoy!</span><span
-                            class="lang-en">Restore your property's shine today!</span>
+                        <span class="lang-es">Recupera el brillo de tu propiedad</span>
+                        <span class="lang-en">Restore your property's shine</span>
                     </h3>
                     <p>
-                        <span class="lang-es">Déjanos tus datos y un especialista te contactará en menos de 24
-                            horas.</span><span class="lang-en">Leave your details and a specialist will contact you
-                            within 24 hours.</span>
+                        <span class="lang-es">Déjanos tus datos de contacto y un especialista programará una visita diagnóstica gratuita en menos de 24 horas.</span>
+                        <span class="lang-en">Leave your contact details and a specialist will schedule a free diagnostic visit within 24 hours.</span>
                     </p>
-                    <ul>
-                        <li><i class="fa-solid fa-phone"></i><span>+34 912 345 678</span></li>
+                    <ul class="contact-info-list">
+                        <li><i class="fa-solid fa-phone"></i><span>+1 (305) 555-0199</span></li>
                         <li><i class="fa-solid fa-envelope"></i><span>info@expresspressureclean.com</span></li>
-                        <li><i class="fa-solid fa-location-dot"></i><span>Madrid y alrededores</span></li>
+                        <li><i class="fa-solid fa-location-dot"></i><span>Miami <span class="lang-es">y alrededores</span><span class="lang-en">& surrounding areas</span></span></li>
                     </ul>
                 </div>
+                
                 <div class="form-side">
-                    <h4 class="section-title" style="margin-bottom: 2rem; font-size: 1.5rem;">
-                        <span class="lang-es">Solicita tu Presupuesto Gratis</span><span class="lang-en">Request Your
-                            Free Quote</span>
+                    <h4 style="font-size: 1.6rem; margin-bottom: 2rem; font-weight: 800;">
+                        <span class="lang-es">Solicita Presupuesto Gratis</span>
+                        <span class="lang-en">Request Your Free Quote</span>
                     </h4>
                     <form action="https://formspree.io/f/mnjnlyrk" method="POST">
                         <div class="form-group">
-                            <label for="nombre" class="form-label"><span class="lang-es">Nombre Completo</span><span
-                                    class="lang-en">Full Name</span></label>
-                            <input type="text" id="nombre" name="name" class="form-control"
-                                placeholder="Tu nombre / Your name" required>
+                            <label for="nombre" class="form-label">
+                                <span class="lang-es">Nombre Completo</span><span class="lang-en">Full Name</span>
+                            </label>
+                            <input type="text" id="nombre" name="name" class="form-control" placeholder="Tu nombre / Your name" required>
                         </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div class="form-group">
-                                <label for="telefono" class="form-label"><span class="lang-es">Teléfono</span><span
-                                        class="lang-en">Phone</span></label>
-                                <input type="tel" id="telefono" name="phone" class="form-control"
-                                    placeholder="600 000 000" required>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.8rem;" class="form-grid-2">
+                            <div>
+                                <label for="telefono" class="form-label">
+                                    <span class="lang-es">Teléfono</span><span class="lang-en">Phone</span>
+                                </label>
+                                <input type="tel" id="telefono" name="phone" class="form-control" placeholder="600 000 000" required>
                             </div>
-                            <div class="form-group">
-                                <label for="email" class="form-label"><span class="lang-es">Correo
-                                        Electrónico</span><span class="lang-en">Email</span></label>
-                                <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="ejemplo@correo.com" required>
+                            <div>
+                                <label for="email" class="form-label">
+                                    <span class="lang-es">Correo Electrónico</span><span class="lang-en">Email</span>
+                                </label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@correo.com" required>
                             </div>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="servicio" class="form-label"><span class="lang-es">¿Qué servicio
-                                    necesitas?</span><span class="lang-en">What service do you need?</span></label>
+                            <label for="servicio" class="form-label">
+                                <span class="lang-es">¿Qué servicio necesitas?</span><span class="lang-en">What service do you need?</span>
+                            </label>
                             <select id="servicio" name="service" class="form-control">
-                                <option value="fachada"><span class="lang-es">Limpieza de Fachada</span><span
-                                        class="lang-en">Facade Cleaning</span></option>
-                                <option value="terraza"><span class="lang-es">Terraza o Patio</span><span
-                                        class="lang-en">Deck or Patio</span></option>
-                                <option value="acera"><span class="lang-es">Estacionamiento</span><span
-                                        class="lang-en">Parking</span></option>
-                                <option value="techo"><span class="lang-es">Techo</span><span
-                                        class="lang-en">Roof</span></option>
-                                <option value="otro"><span class="lang-es">Otro</span><span class="lang-en">Other</span>
-                                </option>
+                                <option value="fachada">Limpieza de Fachada / Facade Cleaning</option>
+                                <option value="terraza">Terraza o Patio / Deck or Patio</option>
+                                <option value="acera">Aceras o Calzadas / Driveways & Walks</option>
+                                <option value="techo">Techo y Tejas / Roof Cleaning</option>
+                                <option value="otro">Otro / Other</option>
                             </select>
                         </div>
+                        
                         <div class="form-group">
-                            <label for="mensaje" class="form-label"><span class="lang-es">Detalles
-                                    adicionales</span><span class="lang-en">Additional Details</span></label>
-                            <textarea id="mensaje" name="message" class="form-control" rows="4"></textarea>
+                            <label for="mensaje" class="form-label">
+                                <span class="lang-es">Detalles Adicionales</span><span class="lang-en">Additional Details</span>
+                            </label>
+                            <textarea id="mensaje" name="message" class="form-control" rows="4" placeholder="Escribe tus requerimientos aquí..."></textarea>
                         </div>
+                        
                         <button type="submit" class="btn btn-primary btn-submit">
-                            <span class="lang-es">Enviar Solicitud</span><span class="lang-en">Send Request</span> <i
-                                class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
+                            <span class="lang-es">Enviar Solicitud</span><span class="lang-en">Send Request</span> 
+                            <i class="fa-solid fa-paper-plane" style="margin-left: 8px;"></i>
                         </button>
                     </form>
                 </div>
@@ -1332,24 +1662,22 @@
         </div>
     </section>
 
-
-
     <!-- FOOTER -->
-
     <footer>
         <div class="container">
+            <a href="#" class="footer-logo" style="display: inline-block; margin-bottom: 2rem;">
+                <img src="logo.png" alt="Express Pressure Clean Logo" style="height: 58px; width: auto; filter: brightness(0) invert(1); opacity: 0.85;">
+            </a>
             <div class="social-icons">
                 <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
-            <p>&copy; 2023 Express Pressure Clean. <span class="lang-es">Todos los derechos reservados.</span><span
-                    class="lang-en">All rights reserved.</span></p>
+            <p>&copy; 2026 Express Pressure Clean. <span class="lang-es">Todos los derechos reservados.</span><span class="lang-en">All rights reserved.</span></p>
         </div>
     </footer>
 
-
-    <!-- AI Assistant -->
+    <!-- AI Assistant Floating Glassbox -->
     <div id="ai-assistant-container">
         <div id="ai-chat-window">
             <div class="ai-chat-header">
@@ -1357,18 +1685,15 @@
                     <span class="lang-es">Asistente Express</span>
                     <span class="lang-en">Express Assistant</span>
                 </h4>
-                <button id="close-chat" style="background:transparent; border:none; color:white; cursor:pointer;"><i
-                        class="fa-solid fa-xmark"></i></button>
+                <button id="close-chat" onclick="document.getElementById('ai-chat-window').classList.remove('active'); event.stopPropagation();" style="background:transparent; border:none; color:white; cursor:pointer; font-size:1.1rem;"><i class="fa-solid fa-xmark" style="pointer-events: none;"></i></button>
             </div>
             <div class="ai-chat-messages" id="chat-messages">
                 <div class="message ai">
-                    <span class="lang-es">¡Hola! Soy tu asistente de Express Pressure Clean. ¿En qué puedo ayudarte
-                        hoy?</span>
-                    <span class="lang-en">Hello! I'm your Express Pressure Clean assistant. How can I help you
-                        today?</span>
+                    <span class="lang-es">¡Hola! Soy tu asistente de Express Pressure Clean. ¿En qué puedo ayudarte hoy?</span>
+                    <span class="lang-en">Hello! I'm your Express Pressure Clean assistant. How can I help you today?</span>
                 </div>
             </div>
-            <div id="typing-indicator" class="typing-indicator" style="padding: 0 1rem 0.5rem;">
+            <div id="typing-indicator" class="typing-indicator" style="padding: 0 1.2rem 0.6rem;">
                 <span class="lang-es">Escribiendo...</span>
                 <span class="lang-en">Typing...</span>
             </div>
@@ -1403,78 +1728,138 @@
                     currentLang = 'es';
                     document.documentElement.lang = 'es';
                 }
+                // Si la sesión de IA existe, la reiniciamos con el idioma correspondiente
+                if (aiSession) {
+                    initAISession();
+                }
             });
 
             // 2. Sticky Header
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
+                if (window.scrollY > 30) {
                     header.classList.add('scrolled');
                 } else {
                     header.classList.remove('scrolled');
                 }
             });
 
-            // 3. Before/After Slider Logic
-            const slider = document.getElementById('before-after');
-            const beforeImg = slider.querySelector('.before-image');
-            const handle = slider.querySelector('.slider-handle');
+            // 3. Hamburger Menu Mobile
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
-            // Fix background size to match container
+            const toggleMobileMenu = () => {
+                mobileToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                if (mobileMenu.classList.contains('active')) {
+                    body.style.overflow = 'hidden'; // Evita el scroll detras
+                } else {
+                    body.style.overflow = '';
+                }
+            };
+
+            mobileToggle.addEventListener('click', toggleMobileMenu);
+
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    body.style.overflow = '';
+                });
+            });
+
+            // 4. Before/After Slider Logic (Sleek Spring + Drag)
+            const slider = document.getElementById('before-after');
+            const afterOverlay = slider.querySelector('.after-image-overlay');
+            const divider = slider.querySelector('.slider-divider');
+
             const updateSliderSize = () => {
                 const rect = slider.getBoundingClientRect();
-                beforeImg.style.backgroundSize = `${rect.width}px ${rect.height}px`;
+                afterOverlay.style.backgroundSize = `${rect.width}px ${rect.height}px`;
             };
 
             window.addEventListener('resize', updateSliderSize);
-            // Initial call after image load (timeout to ensure render)
-            setTimeout(updateSliderSize, 100);
+            setTimeout(updateSliderSize, 300);
 
-            const moveSlider = (e) => {
+            const moveSlider = (clientX) => {
                 const rect = slider.getBoundingClientRect();
-                const x = (e.pageX || e.touches[0].pageX) - rect.left;
+                const x = clientX - rect.left;
                 const position = Math.max(0, Math.min(x, rect.width));
                 const percentage = (position / rect.width) * 100;
 
-                beforeImg.style.width = `${percentage}%`;
-                handle.style.left = `${percentage}%`;
+                afterOverlay.style.width = `${percentage}%`;
+                divider.style.left = `${percentage}%`;
             };
 
-            slider.addEventListener('mousemove', moveSlider);
-            slider.addEventListener('touchmove', moveSlider);
+            let isDragging = false;
 
-            // 4. Reveal Animations
+            const startDrag = () => { isDragging = true; };
+            const stopDrag = () => { isDragging = false; };
+
+            slider.addEventListener('mousedown', (e) => {
+                startDrag();
+                moveSlider(e.clientX);
+            });
+            window.addEventListener('mouseup', stopDrag);
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                moveSlider(e.clientX);
+            });
+
+            // Touch events (Mobile drag)
+            slider.addEventListener('touchstart', (e) => {
+                startDrag();
+                moveSlider(e.touches[0].clientX);
+            });
+            window.addEventListener('touchend', stopDrag);
+            window.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                moveSlider(e.touches[0].clientX);
+            });
+
+            // Luxury hover physics
+            slider.addEventListener('mousemove', (e) => {
+                if (isDragging) return;
+                const rect = slider.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = (x / rect.width) * 100;
+
+                if (x >= 0 && x <= rect.width) {
+                    afterOverlay.style.transition = 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+                    divider.style.transition = 'left 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
+                    afterOverlay.style.width = `${percentage}%`;
+                    divider.style.left = `${percentage}%`;
+                }
+            });
+
+            slider.addEventListener('mouseenter', () => {
+                afterOverlay.style.transition = 'none';
+                divider.style.transition = 'none';
+            });
+
+            // 5. Reveal Animations (Staggered Scroll entry)
             const revealCards = document.querySelectorAll('.reveal-card');
 
             const observerOptions = {
-                threshold: 0.15,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('active');
-                        }, index * 100);
+                        entry.target.classList.add('active');
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
             revealCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
                 observer.observe(card);
             });
 
-            // Dynamically add active class for transition
-            const style = document.createElement('style');
-            style.innerHTML = '.reveal-card.active { opacity: 1 !important; transform: translateY(0) !important; }';
-            document.head.appendChild(style);
-
-            // 5. AI Chat Assistant Logic
+            // 6. AI Chat Assistant Logic (Chrome Prompt API & Graceful fallback)
             const chatBtn = document.getElementById('ai-chat-btn');
             const chatWindow = document.getElementById('ai-chat-window');
             const closeChat = document.getElementById('close-chat');
@@ -1485,48 +1870,41 @@
 
             let aiSession = null;
 
-            chatBtn.addEventListener('click', async () => {
+            chatBtn.addEventListener('click', () => {
                 chatWindow.classList.toggle('active');
                 if (chatWindow.classList.contains('active') && !aiSession) {
                     initAISession();
                 }
             });
 
-            closeChat.addEventListener('click', () => {
+            closeChat.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 chatWindow.classList.remove('active');
             });
 
             const initAISession = async () => {
                 try {
-                    // Check for multiple possible namespaces/globals used in different Chrome versions
                     const aiApi = window.ai?.languageModel || window.model || window.LanguageModel || (typeof LanguageModel !== 'undefined' ? LanguageModel : null);
 
-                    if (!aiApi) {
-                        console.warn("Chrome Prompt API not available in any known namespace.");
-                        return;
-                    }
+                    if (!aiApi) return;
 
-                    // Some versions use .capabilities(), others might not
                     if (aiApi.capabilities) {
                         const available = await aiApi.capabilities();
-                        if (!available || available.available === 'no') {
-                            console.warn("Chrome Prompt API exists but is not available (check flags/download status).");
-                            return;
-                        }
+                        if (!available || available.available === 'no') return;
                     }
 
                     const systemPrompt = `You are a professional assistant for Express Pressure Clean. 
-                    We offer pressure washing for facades, driveways, decks, patios, and roofs (soft wash). 
-                    Our main focus is quality and customer satisfaction. We operate in Madrid and surrounding areas.
+                    We offer premium pressure washing for facades, driveways, decks, patios, and roofs (soft wash). 
+                    Our main focus is quality and absolute customer satisfaction. We operate in Miami and surrounding areas.
                     Be helpful, polite, and professional. Current language is ${currentLang}. 
                     Answer in the same language as the user. If they ask about prices, mention they can get a free quote below.`;
 
-                    // Handle different creation methods
                     if (aiApi.create) {
                         aiSession = await aiApi.create({
                             topK: 3,
                             temperature: 1,
-                            expectedLanguage: currentLang, // Explicitly specify language
+                            expectedLanguage: currentLang,
                             initialPrompts: [{ role: 'system', content: systemPrompt }]
                         });
                     }
@@ -1552,14 +1930,14 @@
                 typingIndicator.style.display = 'block';
 
                 if (!aiSession) {
-                    // Fallback if AI is missing
+                    // Premium graceful fallback response
                     setTimeout(() => {
                         typingIndicator.style.display = 'none';
                         const fallbackMsg = currentLang === 'es'
-                            ? "Lo siento, mi sistema de IA está configurado solo para Chrome Canary/Dev con la API habilitada. ¡Pero puedes contactarnos por WhatsApp o llenar el formulario!"
-                            : "I'm sorry, my AI system is only configured for Chrome Canary/Dev with the API enabled. But you can contact us via WhatsApp or fill out the form!";
+                            ? "¡Hola! Gracias por tu interés. En Express Pressure Clean realizamos lavado a presión profesional de fachadas, terrazas, tejados y accesos en Miami. Para darte un presupuesto exacto y gratuito, por favor llena el formulario de contacto de la página o escríbenos directamente a WhatsApp. ¡Estaremos encantados de ayudarte!"
+                            : "Hello! Thank you for your interest. At Express Pressure Clean, we perform professional power washing for siding, decks, roofs, and driveways in Miami. To get an exact and free quote, please fill out the contact form on this page or text us directly on WhatsApp. We would be delighted to help you!";
                         addMessage(fallbackMsg, 'ai');
-                    }, 1000);
+                    }, 1200);
                     return;
                 }
 
@@ -1568,13 +1946,11 @@
                     let fullResponse = "";
                     const aiMsgDiv = document.createElement('div');
                     aiMsgDiv.className = 'message ai';
-                    aiMsgDiv.textContent = "..."; // Initial placeholder
+                    aiMsgDiv.textContent = "...";
                     chatMessages.appendChild(aiMsgDiv);
                     typingIndicator.style.display = 'none';
 
                     for await (const chunk of stream) {
-                        // Some Prompt API versions return delta, others full string
-                        // Based on user's previous test, it seems to be delta
                         fullResponse += chunk;
                         aiMsgDiv.textContent = fullResponse;
                         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -1590,11 +1966,8 @@
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') handleSend();
             });
-
         });
     </script>
 
-
 </body>
-
 </html>
