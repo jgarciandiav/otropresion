@@ -137,7 +137,13 @@
         }
 
         .section-padding {
-            padding: 8rem 0; /* Espaciado macro holgado */
+            padding: 5.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 3.8rem 0;
+            }
         }
 
         .text-center {
@@ -307,22 +313,30 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            padding: 4px 10px;
+            background: #0f172a;
+            border-radius: 18px;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(14, 165, 233, 0.2);
+            border-color: rgba(14, 165, 233, 0.3);
         }
 
         .logo img {
-            height: 54px;
+            height: 40px;
             width: auto;
             object-fit: contain;
+            border-radius: 10px;
             transition: var(--transition);
         }
 
         header.scrolled .logo img {
-            height: 46px;
-        }
-
-        .logo:hover img {
-            transform: scale(1.04);
+            height: 36px;
         }
 
         .nav-links {
@@ -449,6 +463,18 @@
         .mobile-nav-overlay.active .mobile-nav-link:nth-child(2) { transition-delay: 0.2s; }
         .mobile-nav-overlay.active .mobile-nav-link:nth-child(3) { transition-delay: 0.3s; }
         .mobile-nav-overlay.active .mobile-nav-link:nth-child(4) { transition-delay: 0.4s; }
+
+        .mobile-nav-cta {
+            margin-top: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
+        }
+
+        .mobile-nav-overlay.active .mobile-nav-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         @media (max-width: 991px) {
             header {
@@ -669,7 +695,8 @@
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .reveal-card.active {
+        .reveal-card.active,
+        .hero .reveal-card {
             opacity: 1 !important;
             transform: translateY(0) !important;
         }
@@ -691,40 +718,56 @@
             background-color: var(--primary);
             user-select: none;
             -webkit-user-select: none;
+            cursor: ew-resize;
+            touch-action: none;
         }
 
-        .comparison-slider img.before-image-base {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .comparison-slider .after-image-overlay {
+        .slider-img {
             position: absolute;
             top: 0;
             left: 0;
-            width: 50%;
+            width: 100%;
             height: 100%;
-            z-index: 1;
-            border-right: 3px solid var(--white);
-            background-repeat: no-repeat;
-            background-position: left center;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            pointer-events: none;
         }
 
-        .comparison-slider .slider-divider {
+        .after-image-wrapper {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(0 0, var(--slider-pos, 50%) 0, var(--slider-pos, 50%) 100%, 0 100%);
+            pointer-events: none;
+            will-change: clip-path;
+        }
+
+        .after-image-wrapper .after-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .slider-divider {
             position: absolute;
             top: 0;
-            left: 50%;
-            width: 4px;
+            left: var(--slider-pos, 50%);
+            width: 3px;
             height: 100%;
             background: var(--white);
             z-index: 2;
-            cursor: ew-resize;
             transform: translateX(-50%);
+            pointer-events: none;
+            box-shadow: 0 0 14px rgba(0, 0, 0, 0.45);
+            will-change: left;
         }
 
-        .comparison-slider .slider-handle {
+        .slider-handle {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -738,13 +781,13 @@
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
-            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
             border: 3px solid var(--secondary);
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .comparison-slider:hover .slider-handle {
-            transform: translate(-50%, -50%) scale(1.1);
+            transform: translate(-50%, -50%) scale(1.12);
         }
 
         /* Slider tags */
@@ -762,20 +805,19 @@
             pointer-events: none;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .before-tag {
             right: 1.5rem;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.65);
             color: var(--white);
         }
 
         .after-tag {
             left: 1.5rem;
-            background: rgba(14, 165, 233, 0.85);
+            background: rgba(14, 165, 233, 0.9);
             color: var(--white);
-            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* --- GALERÍA (ASIMÉTRICA PREMIUM) --- */
@@ -853,7 +895,9 @@
 
         /* --- TESTIMONIOS (GRID EDITORIAL) --- */
         .testimonials {
-            background: linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.94)), url('fachada.png') center/cover;
+            background: radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.12), transparent 45%),
+                        radial-gradient(circle at 20% 80%, rgba(249, 115, 22, 0.08), transparent 45%),
+                        #0f172a;
             color: var(--white);
         }
 
@@ -1016,6 +1060,20 @@
             padding: 4.5rem;
         }
 
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.8rem;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+        }
+
         .form-group {
             margin-bottom: 1.8rem;
         }
@@ -1098,58 +1156,125 @@
             transform: translateY(-2px);
         }
 
-        /* --- ASISTENTE DE IA (REAL GLASSMORPHISM) --- */
-        #ai-assistant-container {
+        /* --- BOTONES FLOTANTES Y WHATSAPP --- */
+        .floating-hub {
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            z-index: 99;
+            z-index: 998;
             display: flex;
             flex-direction: column;
+            gap: 0.85rem;
             align-items: flex-end;
         }
 
-        #ai-chat-btn {
-            width: 60px;
-            height: 60px;
+        .floating-action-btn {
+            width: 58px;
+            height: 58px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 15px 30px rgba(15, 23, 42, 0.25);
-            transition: var(--transition);
+            font-size: 1.55rem;
+            color: var(--white);
             border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.25);
+            transition: var(--transition);
+            position: relative;
+            text-decoration: none;
         }
 
-        #ai-chat-btn:hover {
-            transform: scale(1.08) rotate(5deg);
+        .whatsapp-float-btn {
+            background: #25d366;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+        }
+
+        .whatsapp-float-btn:hover {
+            background: #20ba59;
+            color: var(--white);
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+        }
+
+        .ai-float-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+
+        .ai-float-btn:hover {
+            transform: scale(1.08) translateY(-2px);
+            box-shadow: 0 15px 35px rgba(14, 165, 233, 0.45);
+        }
+
+        .floating-tooltip {
+            position: absolute;
+            right: calc(100% + 14px);
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            color: var(--white);
+            padding: 0.45rem 0.9rem;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            transform: translateX(6px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .floating-action-btn:hover .floating-tooltip {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         #ai-chat-window {
-            width: 360px;
-            height: 520px;
-            background: rgba(255, 255, 255, 0.85);
+            position: fixed;
+            bottom: 6.5rem;
+            right: 2rem;
+            width: min(370px, calc(100vw - 2.5rem));
+            height: min(500px, calc(100dvh - 8rem));
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(25px);
             -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: 24px;
-            box-shadow: var(--shadow-lg), 0 20px 50px -15px rgba(15, 23, 42, 0.2);
-            margin-bottom: 1.2rem;
+            box-shadow: var(--shadow-lg), 0 25px 50px -15px rgba(15, 23, 42, 0.25);
             display: none;
             flex-direction: column;
             overflow: hidden;
+            z-index: 1001;
             transition: var(--transition);
             transform-origin: bottom right;
-            border: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         #ai-chat-window.active {
             display: flex;
-            animation: chatOpen 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: chatOpen 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @media (max-width: 768px) {
+            .floating-hub {
+                bottom: 1.25rem;
+                right: 1.25rem;
+                gap: 0.65rem;
+            }
+            .floating-action-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.35rem;
+            }
+            .floating-tooltip {
+                display: none;
+            }
+            #ai-chat-window {
+                bottom: 5.5rem;
+                right: 1.25rem;
+                width: calc(100vw - 2.5rem);
+                height: min(460px, calc(100dvh - 7rem));
+            }
         }
 
         @keyframes chatOpen {
@@ -1276,8 +1401,8 @@
     <header id="header">
         <div class="container">
             <nav>
-                <a href="#" class="logo">
-                    <img src="logo.png" alt="Express Pressure Clean">
+                <a href="#" class="logo" aria-label="Express Pressure Clean Home">
+                    <img src="logo.webp" alt="Express Pressure Clean">
                 </a>
 
                 <ul class="nav-links">
@@ -1288,11 +1413,12 @@
                 </ul>
 
                 <div class="header-actions">
-                    <button class="lang-btn" id="lang-toggle">
+                    <button class="lang-btn" id="lang-toggle" aria-label="Cambiar idioma / Toggle Language">
                         <i class="fa-solid fa-globe"></i>
                         <span id="lang-label">EN</span>
                     </button>
-                    <a href="https://wa.me/123456789" class="btn btn-primary header-cta">
+                    <a href="https://wa.me/13055550199?text=Hola,%20quisiera%20un%20presupuesto" target="_blank" rel="noopener" class="btn btn-primary header-cta">
+                        <i class="fa-brands fa-whatsapp"></i>
                         <span class="lang-es">WhatsApp</span><span class="lang-en">Chat Now</span>
                     </a>
                     <button class="mobile-nav-toggle" id="mobile-toggle" aria-label="Toggle Navigation">
@@ -1312,6 +1438,12 @@
             <li><a href="#galeria" class="mobile-nav-link"><span class="lang-es">Galería</span><span class="lang-en">Gallery</span></a></li>
             <li><a href="#contacto" class="mobile-nav-link"><span class="lang-es">Contacto</span><span class="lang-en">Contact</span></a></li>
         </ul>
+        <div class="mobile-nav-cta">
+            <a href="https://wa.me/13055550199?text=Hola,%20quisiera%20un%20presupuesto" target="_blank" rel="noopener" class="btn btn-primary">
+                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
+                <span class="lang-es">WhatsApp Directo</span><span class="lang-en">Chat on WhatsApp</span>
+            </a>
+        </div>
     </div>
 
     <!-- HERO -->
@@ -1342,7 +1474,7 @@
             <!-- Double-Bezel nested architecture for hero image -->
             <div class="hero-image-outer reveal-card" style="transition-delay: 0.2s;">
                 <div class="hero-image-inner">
-                    <img src="fachada.png" alt="Pressure Washing Fachada">
+                    <img src="fachada.webp" alt="Pressure Washing Fachada" width="600" height="450">
                 </div>
             </div>
         </div>
@@ -1424,16 +1556,18 @@
 
             <!-- Double-Bezel outer for comparison slider -->
             <div class="hero-image-outer reveal-card" style="max-width: 850px; margin: 0 auto; padding: 10px;">
-                <div class="comparison-slider" id="before-after">
+                <div class="comparison-slider" id="before-after" style="--slider-pos: 50%;">
                     <!-- Dirty Image (Before) as Base -->
-                    <img src="Driveway.png" alt="Before (Dirty)" class="before-image-base">
+                    <img src="Driveway.webp" alt="Before (Dirty)" class="slider-img before-img" loading="lazy">
                     
-                    <!-- Clean Image (After) as Overlay -->
-                    <div class="after-image-overlay" style="background-image: url('Drivewayclean.png');"></div>
+                    <!-- Clean Image (After) as Overlay with clip-path -->
+                    <div class="after-image-wrapper">
+                        <img src="Drivewayclean.webp" alt="After (Clean)" class="slider-img after-img" loading="lazy">
+                    </div>
                     
                     <!-- Divider line & handle -->
                     <div class="slider-divider">
-                        <div class="slider-handle">
+                        <div class="slider-handle" aria-hidden="true">
                             <i class="fa-solid fa-arrows-left-right"></i>
                         </div>
                     </div>
@@ -1467,7 +1601,7 @@
                 <!-- Item 1 (Span 7) -->
                 <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.1s;">
                     <div class="gallery-item">
-                        <img src="fachada.png" alt="Limpieza Residencial Fachada">
+                        <img src="fachada.webp" alt="Limpieza Residencial Fachada" loading="lazy">
                         <div class="gallery-overlay">
                             <h3><span class="lang-es">Limpieza de Fachada Completa</span><span class="lang-en">Complete Facade Washing</span></h3>
                         </div>
@@ -1477,17 +1611,17 @@
                 <!-- Item 2 (Span 5) -->
                 <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.2s;">
                     <div class="gallery-item">
-                        <img src="limpiando techo.png" alt="Mantenimiento Techos">
+                        <img src="limpiando-techo.webp" alt="Mantenimiento Techos" loading="lazy">
                         <div class="gallery-overlay">
                             <h3><span class="lang-es">Mantenimiento y Lavado de Techo</span><span class="lang-en">Roof Maintenance & Washing</span></h3>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 3 (Span 5) -->
+                <!-- Item 3 (Span 5) - Fixed to show clean concrete finish -->
                 <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.3s;">
                     <div class="gallery-item">
-                        <img src="Driveway.png" alt="Lavado Concreto Aceras">
+                        <img src="Drivewayclean.webp" alt="Lavado Concreto Aceras Impecable" loading="lazy">
                         <div class="gallery-overlay">
                             <h3><span class="lang-es">Lavado de Hormigón de Entrada</span><span class="lang-en">Driveway Concrete Power Wash</span></h3>
                         </div>
@@ -1497,7 +1631,7 @@
                 <!-- Item 4 (Span 7) -->
                 <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.4s;">
                     <div class="gallery-item">
-                        <img src="cleaning office.png" alt="Servicios Limpieza Comercial">
+                        <img src="cleaning-office.webp" alt="Servicios Limpieza Comercial" loading="lazy">
                         <div class="gallery-overlay">
                             <h3><span class="lang-es">Edificios y Oficinas Comerciales</span><span class="lang-en">Commercial Offices & Buildings</span></h3>
                         </div>
@@ -1614,21 +1748,21 @@
                             <label for="nombre" class="form-label">
                                 <span class="lang-es">Nombre Completo</span><span class="lang-en">Full Name</span>
                             </label>
-                            <input type="text" id="nombre" name="name" class="form-control" placeholder="Tu nombre / Your name" required>
+                            <input type="text" id="nombre" name="name" class="form-control" placeholder="Tu nombre completo" data-placeholder-es="Tu nombre completo" data-placeholder-en="Your full name" required>
                         </div>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.8rem;" class="form-grid-2">
+                        <div class="form-grid-2">
                             <div>
                                 <label for="telefono" class="form-label">
                                     <span class="lang-es">Teléfono</span><span class="lang-en">Phone</span>
                                 </label>
-                                <input type="tel" id="telefono" name="phone" class="form-control" placeholder="600 000 000" required>
+                                <input type="tel" id="telefono" name="phone" class="form-control" placeholder="(305) 000-0000" data-placeholder-es="(305) 000-0000" data-placeholder-en="(305) 000-0000" required>
                             </div>
                             <div>
                                 <label for="email" class="form-label">
                                     <span class="lang-es">Correo Electrónico</span><span class="lang-en">Email</span>
                                 </label>
-                                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@correo.com" required>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="ejemplo@correo.com" data-placeholder-es="ejemplo@correo.com" data-placeholder-en="example@email.com" required>
                             </div>
                         </div>
                         
@@ -1637,11 +1771,11 @@
                                 <span class="lang-es">¿Qué servicio necesitas?</span><span class="lang-en">What service do you need?</span>
                             </label>
                             <select id="servicio" name="service" class="form-control">
-                                <option value="fachada">Limpieza de Fachada / Facade Cleaning</option>
-                                <option value="terraza">Terraza o Patio / Deck or Patio</option>
-                                <option value="acera">Aceras o Calzadas / Driveways & Walks</option>
-                                <option value="techo">Techo y Tejas / Roof Cleaning</option>
-                                <option value="otro">Otro / Other</option>
+                                <option value="fachada">Limpieza de Fachada</option>
+                                <option value="terraza">Terraza o Patio</option>
+                                <option value="acera">Aceras o Calzadas</option>
+                                <option value="techo">Techo y Tejas (Soft Wash)</option>
+                                <option value="otro">Otro Requerimiento</option>
                             </select>
                         </div>
                         
@@ -1649,7 +1783,7 @@
                             <label for="mensaje" class="form-label">
                                 <span class="lang-es">Detalles Adicionales</span><span class="lang-en">Additional Details</span>
                             </label>
-                            <textarea id="mensaje" name="message" class="form-control" rows="4" placeholder="Escribe tus requerimientos aquí..."></textarea>
+                            <textarea id="mensaje" name="message" class="form-control" rows="4" placeholder="Escribe tus requerimientos aquí..." data-placeholder-es="Escribe tus requerimientos aquí..." data-placeholder-en="Describe your requirements here..."></textarea>
                         </div>
                         
                         <button type="submit" class="btn btn-primary btn-submit">
@@ -1665,76 +1799,133 @@
     <!-- FOOTER -->
     <footer>
         <div class="container">
-            <a href="#" class="footer-logo" style="display: inline-block; margin-bottom: 2rem;">
-                <img src="logo.png" alt="Express Pressure Clean Logo" style="height: 58px; width: auto; filter: brightness(0) invert(1); opacity: 0.85;">
+            <a href="#" class="footer-logo" aria-label="Express Pressure Clean" style="display: inline-block; margin-bottom: 2rem;">
+                <img src="logo.webp" alt="Express Pressure Clean Logo" style="height: 54px; width: auto; opacity: 0.95; border-radius: 12px;">
             </a>
             <div class="social-icons">
                 <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="https://wa.me/13055550199?text=Hola,%20quisiera%20un%20presupuesto" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             </div>
             <p>&copy; 2026 Express Pressure Clean. <span class="lang-es">Todos los derechos reservados.</span><span class="lang-en">All rights reserved.</span></p>
         </div>
     </footer>
 
-    <!-- AI Assistant Floating Glassbox -->
-    <div id="ai-assistant-container">
-        <div id="ai-chat-window">
-            <div class="ai-chat-header">
-                <h4>
-                    <span class="lang-es">Asistente Express</span>
-                    <span class="lang-en">Express Assistant</span>
-                </h4>
-                <button id="close-chat" onclick="document.getElementById('ai-chat-window').classList.remove('active'); event.stopPropagation();" style="background:transparent; border:none; color:white; cursor:pointer; font-size:1.1rem;"><i class="fa-solid fa-xmark" style="pointer-events: none;"></i></button>
-            </div>
-            <div class="ai-chat-messages" id="chat-messages">
-                <div class="message ai">
-                    <span class="lang-es">¡Hola! Soy tu asistente de Express Pressure Clean. ¿En qué puedo ayudarte hoy?</span>
-                    <span class="lang-en">Hello! I'm your Express Pressure Clean assistant. How can I help you today?</span>
-                </div>
-            </div>
-            <div id="typing-indicator" class="typing-indicator" style="padding: 0 1.2rem 0.6rem;">
-                <span class="lang-es">Escribiendo...</span>
-                <span class="lang-en">Typing...</span>
-            </div>
-            <div class="ai-chat-input">
-                <input type="text" id="chat-input" placeholder="Escribe tu duda... / Ask something...">
-                <button id="send-chat"><i class="fa-solid fa-paper-plane"></i></button>
+    <!-- Floating Actions Hub (WhatsApp + AI Assistant) -->
+    <div class="floating-hub">
+        <a href="https://wa.me/13055550199?text=Hola,%20quisiera%20un%20presupuesto" target="_blank" rel="noopener" class="floating-action-btn whatsapp-float-btn" aria-label="Contactar por WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="floating-tooltip"><span class="lang-es">¿Hablamos por WhatsApp?</span><span class="lang-en">Chat on WhatsApp</span></span>
+        </a>
+        <button id="ai-chat-btn" class="floating-action-btn ai-float-btn" aria-label="Asistente Virtual IA">
+            <i class="fa-solid fa-robot"></i>
+            <span class="floating-tooltip"><span class="lang-es">Asistente IA</span><span class="lang-en">AI Assistant</span></span>
+        </button>
+    </div>
+
+    <!-- AI Assistant Floating Window -->
+    <div id="ai-chat-window" role="dialog" aria-label="Chat con Asistente Express">
+        <div class="ai-chat-header">
+            <h4>
+                <span class="lang-es">Asistente Express</span>
+                <span class="lang-en">Express Assistant</span>
+            </h4>
+            <button id="close-chat" aria-label="Cerrar chat" style="background:transparent; border:none; color:white; cursor:pointer; font-size:1.1rem;"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="ai-chat-messages" id="chat-messages">
+            <div class="message ai">
+                <span class="lang-es">¡Hola! Soy tu asistente de Express Pressure Clean. ¿En qué puedo ayudarte hoy?</span>
+                <span class="lang-en">Hello! I'm your Express Pressure Clean assistant. How can I help you today?</span>
             </div>
         </div>
-        <button id="ai-chat-btn">
-            <i class="fa-solid fa-robot"></i>
-        </button>
+        <div id="typing-indicator" class="typing-indicator" style="padding: 0 1.2rem 0.6rem;">
+            <span class="lang-es">Escribiendo...</span>
+            <span class="lang-en">Typing...</span>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="chat-input" placeholder="Escribe tu duda..." data-placeholder-es="Escribe tu duda..." data-placeholder-en="Ask a question...">
+            <button id="send-chat" aria-label="Enviar mensaje"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Cambio de idioma
+            let aiSession = null;
+
+            // 1. Opciones de Servicios para traducción limpia
+            const serviceOptions = {
+                es: [
+                    { value: 'fachada', text: 'Limpieza de Fachada' },
+                    { value: 'terraza', text: 'Terraza o Patio' },
+                    { value: 'acera', text: 'Aceras o Calzadas' },
+                    { value: 'techo', text: 'Techo y Tejas (Soft Wash)' },
+                    { value: 'otro', text: 'Otro Requerimiento' }
+                ],
+                en: [
+                    { value: 'fachada', text: 'Facade & Siding Cleaning' },
+                    { value: 'terraza', text: 'Deck or Patio Washing' },
+                    { value: 'acera', text: 'Driveways & Sidewalks' },
+                    { value: 'techo', text: 'Roofs & Shingles (Soft Wash)' },
+                    { value: 'otro', text: 'Other Request' }
+                ]
+            };
+
+            // 2. Sistema de Idioma con LocalStorage
             const langToggle = document.getElementById('lang-toggle');
             const langLabel = document.getElementById('lang-label');
             const body = document.body;
-            let currentLang = 'es';
+            const servicioSelect = document.getElementById('servicio');
+            let currentLang = localStorage.getItem('site_lang') || 'es';
 
-            langToggle.addEventListener('click', () => {
-                if (currentLang === 'es') {
+            const updateDynamicTexts = (lang) => {
+                // Actualizar placeholders
+                document.querySelectorAll('[data-placeholder-es]').forEach(el => {
+                    const ph = lang === 'en' ? el.getAttribute('data-placeholder-en') : el.getAttribute('data-placeholder-es');
+                    if (ph) el.placeholder = ph;
+                });
+
+                // Actualizar opciones del selector de servicios
+                if (servicioSelect && serviceOptions[lang]) {
+                    const currentVal = servicioSelect.value;
+                    servicioSelect.innerHTML = '';
+                    serviceOptions[lang].forEach(opt => {
+                        const optionEl = document.createElement('option');
+                        optionEl.value = opt.value;
+                        optionEl.textContent = opt.text;
+                        if (opt.value === currentVal) optionEl.selected = true;
+                        servicioSelect.appendChild(optionEl);
+                    });
+                }
+            };
+
+            const applyLanguage = (lang) => {
+                currentLang = lang;
+                if (lang === 'en') {
                     body.classList.add('english-mode');
                     langLabel.textContent = 'ES';
-                    currentLang = 'en';
                     document.documentElement.lang = 'en';
                 } else {
                     body.classList.remove('english-mode');
                     langLabel.textContent = 'EN';
-                    currentLang = 'es';
                     document.documentElement.lang = 'es';
                 }
-                // Si la sesión de IA existe, la reiniciamos con el idioma correspondiente
-                if (aiSession) {
+                localStorage.setItem('site_lang', lang);
+                updateDynamicTexts(lang);
+
+                if (aiSession && typeof initAISession === 'function') {
                     initAISession();
                 }
+            };
+
+            // Inicializar idioma guardado
+            applyLanguage(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                applyLanguage(currentLang === 'es' ? 'en' : 'es');
             });
 
-            // 2. Sticky Header
+            // 3. Sticky Header
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 30) {
@@ -1742,21 +1933,17 @@
                 } else {
                     header.classList.remove('scrolled');
                 }
-            });
+            }, { passive: true });
 
-            // 3. Hamburger Menu Mobile
+            // 4. Hamburger Menu Mobile
             const mobileToggle = document.getElementById('mobile-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link, .mobile-nav-cta a');
 
             const toggleMobileMenu = () => {
-                mobileToggle.classList.toggle('active');
+                const isActive = mobileToggle.classList.toggle('active');
                 mobileMenu.classList.toggle('active');
-                if (mobileMenu.classList.contains('active')) {
-                    body.style.overflow = 'hidden'; // Evita el scroll detras
-                } else {
-                    body.style.overflow = '';
-                }
+                body.style.overflow = isActive ? 'hidden' : '';
             };
 
             mobileToggle.addEventListener('click', toggleMobileMenu);
@@ -1769,81 +1956,46 @@
                 });
             });
 
-            // 4. Before/After Slider Logic (Sleek Spring + Drag)
+            // 5. Before/After Slider Logic (Subpixel Clip-Path + Pointer Events)
             const slider = document.getElementById('before-after');
-            const afterOverlay = slider.querySelector('.after-image-overlay');
-            const divider = slider.querySelector('.slider-divider');
+            if (slider) {
+                let isDragging = false;
 
-            const updateSliderSize = () => {
-                const rect = slider.getBoundingClientRect();
-                afterOverlay.style.backgroundSize = `${rect.width}px ${rect.height}px`;
-            };
+                const setSliderPosition = (clientX) => {
+                    const rect = slider.getBoundingClientRect();
+                    const x = clientX - rect.left;
+                    const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                    slider.style.setProperty('--slider-pos', `${percentage}%`);
+                };
 
-            window.addEventListener('resize', updateSliderSize);
-            setTimeout(updateSliderSize, 300);
+                slider.addEventListener('pointerdown', (e) => {
+                    isDragging = true;
+                    try { slider.setPointerCapture(e.pointerId); } catch(_) {}
+                    setSliderPosition(e.clientX);
+                });
 
-            const moveSlider = (clientX) => {
-                const rect = slider.getBoundingClientRect();
-                const x = clientX - rect.left;
-                const position = Math.max(0, Math.min(x, rect.width));
-                const percentage = (position / rect.width) * 100;
+                slider.addEventListener('pointermove', (e) => {
+                    if (isDragging || e.pointerType === 'mouse') {
+                        setSliderPosition(e.clientX);
+                    }
+                });
 
-                afterOverlay.style.width = `${percentage}%`;
-                divider.style.left = `${percentage}%`;
-            };
+                const stopSliding = (e) => {
+                    if (isDragging) {
+                        isDragging = false;
+                        try { slider.releasePointerCapture(e.pointerId); } catch(_) {}
+                    }
+                };
 
-            let isDragging = false;
+                slider.addEventListener('pointerup', stopSliding);
+                slider.addEventListener('pointercancel', stopSliding);
+            }
 
-            const startDrag = () => { isDragging = true; };
-            const stopDrag = () => { isDragging = false; };
-
-            slider.addEventListener('mousedown', (e) => {
-                startDrag();
-                moveSlider(e.clientX);
-            });
-            window.addEventListener('mouseup', stopDrag);
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                moveSlider(e.clientX);
-            });
-
-            // Touch events (Mobile drag)
-            slider.addEventListener('touchstart', (e) => {
-                startDrag();
-                moveSlider(e.touches[0].clientX);
-            });
-            window.addEventListener('touchend', stopDrag);
-            window.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                moveSlider(e.touches[0].clientX);
-            });
-
-            // Luxury hover physics
-            slider.addEventListener('mousemove', (e) => {
-                if (isDragging) return;
-                const rect = slider.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const percentage = (x / rect.width) * 100;
-
-                if (x >= 0 && x <= rect.width) {
-                    afterOverlay.style.transition = 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
-                    divider.style.transition = 'left 0.2s cubic-bezier(0.16, 1, 0.3, 1)';
-                    afterOverlay.style.width = `${percentage}%`;
-                    divider.style.left = `${percentage}%`;
-                }
-            });
-
-            slider.addEventListener('mouseenter', () => {
-                afterOverlay.style.transition = 'none';
-                divider.style.transition = 'none';
-            });
-
-            // 5. Reveal Animations (Staggered Scroll entry)
+            // 6. Reveal Animations (Intersection Observer)
             const revealCards = document.querySelectorAll('.reveal-card');
-
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -40px 0px'
+                threshold: 0.08,
+                rootMargin: '0px 0px -30px 0px'
             };
 
             const observer = new IntersectionObserver((entries) => {
@@ -1855,11 +2007,9 @@
                 });
             }, observerOptions);
 
-            revealCards.forEach(card => {
-                observer.observe(card);
-            });
+            revealCards.forEach(card => observer.observe(card));
 
-            // 6. AI Chat Assistant Logic (Chrome Prompt API & Graceful fallback)
+            // 7. AI Chat Assistant Logic (Chrome Prompt API & Graceful Fallback)
             const chatBtn = document.getElementById('ai-chat-btn');
             const chatWindow = document.getElementById('ai-chat-window');
             const closeChat = document.getElementById('close-chat');
@@ -1868,12 +2018,14 @@
             const chatMessages = document.getElementById('chat-messages');
             const typingIndicator = document.getElementById('typing-indicator');
 
-            let aiSession = null;
-
-            chatBtn.addEventListener('click', () => {
-                chatWindow.classList.toggle('active');
-                if (chatWindow.classList.contains('active') && !aiSession) {
+            chatBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = chatWindow.classList.toggle('active');
+                if (isActive && !aiSession) {
                     initAISession();
+                }
+                if (isActive) {
+                    setTimeout(() => chatInput.focus(), 150);
                 }
             });
 
@@ -1883,10 +2035,27 @@
                 chatWindow.classList.remove('active');
             });
 
+            // Cerrar con Escape o clic fuera
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (chatWindow.classList.contains('active')) {
+                        chatWindow.classList.remove('active');
+                    }
+                    if (mobileMenu.classList.contains('active')) {
+                        toggleMobileMenu();
+                    }
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (chatWindow.classList.contains('active') && !chatWindow.contains(e.target) && !chatBtn.contains(e.target)) {
+                    chatWindow.classList.remove('active');
+                }
+            });
+
             const initAISession = async () => {
                 try {
                     const aiApi = window.ai?.languageModel || window.model || window.LanguageModel || (typeof LanguageModel !== 'undefined' ? LanguageModel : null);
-
                     if (!aiApi) return;
 
                     if (aiApi.capabilities) {
@@ -1930,14 +2099,13 @@
                 typingIndicator.style.display = 'block';
 
                 if (!aiSession) {
-                    // Premium graceful fallback response
                     setTimeout(() => {
                         typingIndicator.style.display = 'none';
                         const fallbackMsg = currentLang === 'es'
                             ? "¡Hola! Gracias por tu interés. En Express Pressure Clean realizamos lavado a presión profesional de fachadas, terrazas, tejados y accesos en Miami. Para darte un presupuesto exacto y gratuito, por favor llena el formulario de contacto de la página o escríbenos directamente a WhatsApp. ¡Estaremos encantados de ayudarte!"
                             : "Hello! Thank you for your interest. At Express Pressure Clean, we perform professional power washing for siding, decks, roofs, and driveways in Miami. To get an exact and free quote, please fill out the contact form on this page or text us directly on WhatsApp. We would be delighted to help you!";
                         addMessage(fallbackMsg, 'ai');
-                    }, 1200);
+                    }, 1000);
                     return;
                 }
 
