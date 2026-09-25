@@ -1,0 +1,70 @@
+[
+  {
+    "id": 1,
+    "imagen": "fachada.webp",
+    "alt": "Limpieza Residencial Fachada",
+    "categoria": {
+      "es": "Fachadas",
+      "en": "Facades"
+    },
+    "titulo": {
+      "es": "Limpieza de Fachada Completa",
+      "en": "Complete Facade Washing"
+    },
+    "subtitulo": {
+      "es": "Eliminación profunda de moho y suciedad",
+      "en": "Deep mold and grime removal"
+    }
+  },
+  {
+    "id": 2,
+    "imagen": "limpiando-techo.webp",
+    "alt": "Mantenimiento Techos",
+    "categoria": {
+      "es": "Techos",
+      "en": "Roofs"
+    },
+    "titulo": {
+      "es": "Mantenimiento y Lavado de Techo",
+      "en": "Roof Maintenance & Washing"
+    },
+    "subtitulo": {
+      "es": "Soft Wash para máxima protección de tejas",
+      "en": "Soft Wash method to protect shingles"
+    }
+  },
+  {
+    "id": 3,
+    "imagen": "Drivewayclean.webp",
+    "alt": "Lavado Concreto Aceras Impecable",
+    "categoria": {
+      "es": "Concreto",
+      "en": "Concrete"
+    },
+    "titulo": {
+      "es": "Lavado de Hormigón de Entrada",
+      "en": "Driveway Concrete Power Wash"
+    },
+    "subtitulo": {
+      "es": "Remoción de manchas de aceite y moho",
+      "en": "Oil stain and mold removal"
+    }
+  },
+  {
+    "id": 4,
+    "imagen": "cleaning-office.webp",
+    "alt": "Servicios Limpieza Comercial",
+    "categoria": {
+      "es": "Comercial",
+      "en": "Commercial"
+    },
+    "titulo": {
+      "es": "Edificios y Oficinas Comerciales",
+      "en": "Commercial Offices & Buildings"
+    },
+    "subtitulo": {
+      "es": "Acabado profesional de alto impacto",
+      "en": "High-impact corporate finish"
+    }
+  }
+]

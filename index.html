@@ -820,39 +820,83 @@
             color: var(--white);
         }
 
-        /* --- GALERÍA (ASIMÉTRICA PREMIUM) --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 2rem;
+        /* --- GALERÍA (CARRUSEL MULTITARJETA PREMIUM) --- */
+        .gallery-carousel-wrapper {
+            position: relative;
+            margin: 1.5rem 0 0.5rem 0;
+            padding: 0;
+        }
+
+        .gallery-carousel-track {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 12px 6px 22px 6px;
+            cursor: grab;
+        }
+
+        .gallery-carousel-track:active {
+            cursor: grabbing;
+        }
+
+        .gallery-carousel-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .gallery-carousel-item {
+            scroll-snap-align: start;
+            flex: 0 0 calc((100% - 2 * 1.5rem) / 3);
+            min-width: 0;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-carousel-item {
+                flex: 0 0 calc((100% - 1.5rem) / 2);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .gallery-carousel-item {
+                flex: 0 0 100%;
+            }
         }
 
         .gallery-item-outer {
-            background: rgba(15, 23, 42, 0.01);
-            border: 1px solid rgba(15, 23, 42, 0.03);
+            background: rgba(15, 23, 42, 0.015);
+            border: 1px solid rgba(15, 23, 42, 0.05);
             padding: 8px;
             border-radius: 28px;
             transition: var(--transition);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-item-outer:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(14, 165, 233, 0.2);
         }
 
         .gallery-item {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            aspect-ratio: 16/13;
+            aspect-ratio: 4 / 3;
+            width: 100%;
             background-color: var(--primary-light);
-        }
-
-        .gallery-item-outer:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(14, 165, 233, 0.1);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
             transition: var(--transition);
         }
 
@@ -860,37 +904,145 @@
             transform: scale(1.06);
         }
 
+        .gallery-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--white);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            z-index: 3;
+            pointer-events: none;
+        }
+
         .gallery-overlay {
             position: absolute;
             inset: 0;
-            padding: 2rem;
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent 70%);
+            padding: 1.8rem;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 55%, transparent 100%);
             color: var(--white);
             opacity: 0;
             transition: var(--transition);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
+            z-index: 2;
         }
 
         .gallery-item-outer:hover .gallery-overlay {
             opacity: 1;
         }
 
-        .gallery-overlay h3 {
-            color: var(--white);
-            font-size: 1.3rem;
-            margin-bottom: 0.25rem;
+        @media (hover: none), (max-width: 768px) {
+            .gallery-overlay {
+                opacity: 1;
+                background: linear-gradient(to top, rgba(15, 23, 42, 0.88) 0%, rgba(15, 23, 42, 0.3) 55%, transparent 100%);
+            }
         }
 
-        /* Bento Grid Gallery classes */
-        .gal-col-7 { grid-column: span 7; }
-        .gal-col-5 { grid-column: span 5; }
+        .gallery-overlay h3 {
+            color: var(--white);
+            font-size: 1.18rem;
+            line-height: 1.25;
+            margin-bottom: 0.3rem;
+        }
 
-        @media (max-width: 768px) {
-            .gal-col-7, .gal-col-5 {
-                grid-column: span 12;
+        .gallery-sub {
+            color: rgba(255, 255, 255, 0.82);
+            font-size: 0.82rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Botones Carrusel */
+        .carousel-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--white);
+            color: var(--primary);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+        }
+
+        .carousel-nav-btn:hover {
+            background: var(--secondary);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 10px 28px rgba(14, 165, 233, 0.35);
+        }
+
+        .carousel-nav-btn.prev-btn {
+            left: -24px;
+        }
+
+        .carousel-nav-btn.next-btn {
+            right: -24px;
+        }
+
+        @media (max-width: 1024px) {
+            .carousel-nav-btn.prev-btn {
+                left: 6px;
             }
+            .carousel-nav-btn.next-btn {
+                right: 6px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .carousel-nav-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+                background: rgba(255, 255, 255, 0.92);
+            }
+        }
+
+        /* Indicadores (Dots) */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .carousel-dot.active {
+            width: 30px;
+            border-radius: 12px;
+            background: var(--secondary);
+        }
+
+        .carousel-dot:hover:not(.active) {
+            background: var(--text-light);
         }
 
         /* --- TESTIMONIOS (GRID EDITORIAL) --- */
@@ -1584,7 +1736,7 @@
         </div>
     </section>
 
-    <!-- GALERÍA (ASIMÉTRICA PREMIUM) -->
+    <!-- GALERÍA (CARRUSEL MULTITARJETA PREMIUM) -->
     <section id="galeria" class="section-padding" style="background: var(--white);">
         <div class="container">
             <div class="text-center reveal-card">
@@ -1597,47 +1749,76 @@
                 </p>
             </div>
             
-            <div class="gallery-grid">
-                <!-- Item 1 (Span 7) -->
-                <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.1s;">
-                    <div class="gallery-item">
-                        <img src="fachada.webp" alt="Limpieza Residencial Fachada" loading="lazy">
-                        <div class="gallery-overlay">
-                            <h3><span class="lang-es">Limpieza de Fachada Completa</span><span class="lang-en">Complete Facade Washing</span></h3>
+            <div class="gallery-carousel-wrapper reveal-card" style="transition-delay: 0.15s;">
+                <button class="carousel-nav-btn prev-btn" id="gallery-prev" aria-label="Anterior trabajo" type="button">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+
+                <div class="gallery-carousel-track" id="gallery-track">
+                    <!-- Item 1 -->
+                    <div class="gallery-carousel-item">
+                        <div class="gallery-item-outer">
+                            <div class="gallery-item">
+                                <span class="gallery-badge"><span class="lang-es">Fachadas</span><span class="lang-en">Facades</span></span>
+                                <img src="fachada.webp" alt="Limpieza Residencial Fachada" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <h3><span class="lang-es">Limpieza de Fachada Completa</span><span class="lang-en">Complete Facade Washing</span></h3>
+                                    <p class="gallery-sub"><span class="lang-es">Eliminación profunda de moho y suciedad</span><span class="lang-en">Deep mold and grime removal</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="gallery-carousel-item">
+                        <div class="gallery-item-outer">
+                            <div class="gallery-item">
+                                <span class="gallery-badge"><span class="lang-es">Techos</span><span class="lang-en">Roofs</span></span>
+                                <img src="limpiando-techo.webp" alt="Mantenimiento Techos" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <h3><span class="lang-es">Mantenimiento y Lavado de Techo</span><span class="lang-en">Roof Maintenance & Washing</span></h3>
+                                    <p class="gallery-sub"><span class="lang-es">Soft Wash para máxima protección de tejas</span><span class="lang-en">Soft Wash method to protect shingles</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="gallery-carousel-item">
+                        <div class="gallery-item-outer">
+                            <div class="gallery-item">
+                                <span class="gallery-badge"><span class="lang-es">Concreto</span><span class="lang-en">Concrete</span></span>
+                                <img src="Drivewayclean.webp" alt="Lavado Concreto Aceras Impecable" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <h3><span class="lang-es">Lavado de Hormigón de Entrada</span><span class="lang-en">Driveway Concrete Power Wash</span></h3>
+                                    <p class="gallery-sub"><span class="lang-es">Remoción de manchas de aceite y moho</span><span class="lang-en">Oil stain and mold removal</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="gallery-carousel-item">
+                        <div class="gallery-item-outer">
+                            <div class="gallery-item">
+                                <span class="gallery-badge"><span class="lang-es">Comercial</span><span class="lang-en">Commercial</span></span>
+                                <img src="cleaning-office.webp" alt="Servicios Limpieza Comercial" loading="lazy">
+                                <div class="gallery-overlay">
+                                    <h3><span class="lang-es">Edificios y Oficinas Comerciales</span><span class="lang-en">Commercial Offices & Buildings</span></h3>
+                                    <p class="gallery-sub"><span class="lang-es">Acabado profesional de alto impacto</span><span class="lang-en">High-impact corporate finish</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Item 2 (Span 5) -->
-                <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.2s;">
-                    <div class="gallery-item">
-                        <img src="limpiando-techo.webp" alt="Mantenimiento Techos" loading="lazy">
-                        <div class="gallery-overlay">
-                            <h3><span class="lang-es">Mantenimiento y Lavado de Techo</span><span class="lang-en">Roof Maintenance & Washing</span></h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 3 (Span 5) - Fixed to show clean concrete finish -->
-                <div class="gallery-item-outer gal-col-5 reveal-card" style="transition-delay: 0.3s;">
-                    <div class="gallery-item">
-                        <img src="Drivewayclean.webp" alt="Lavado Concreto Aceras Impecable" loading="lazy">
-                        <div class="gallery-overlay">
-                            <h3><span class="lang-es">Lavado de Hormigón de Entrada</span><span class="lang-en">Driveway Concrete Power Wash</span></h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item 4 (Span 7) -->
-                <div class="gallery-item-outer gal-col-7 reveal-card" style="transition-delay: 0.4s;">
-                    <div class="gallery-item">
-                        <img src="cleaning-office.webp" alt="Servicios Limpieza Comercial" loading="lazy">
-                        <div class="gallery-overlay">
-                            <h3><span class="lang-es">Edificios y Oficinas Comerciales</span><span class="lang-en">Commercial Offices & Buildings</span></h3>
-                        </div>
-                    </div>
-                </div>
+                <button class="carousel-nav-btn next-btn" id="gallery-next" aria-label="Siguiente trabajo" type="button">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
+
+            <!-- Indicadores Dots -->
+            <div class="carousel-dots" id="gallery-dots" role="tablist" aria-label="Navegación de trabajos"></div>
         </div>
     </section>
 
@@ -1989,6 +2170,240 @@
 
                 slider.addEventListener('pointerup', stopSliding);
                 slider.addEventListener('pointercancel', stopSliding);
+            }
+
+            // 5b. Carrusel Dinámico basado en trabajos.json (Opción 2)
+            const galleryTrack = document.getElementById('gallery-track');
+            const galleryPrev = document.getElementById('gallery-prev');
+            const galleryNext = document.getElementById('gallery-next');
+            const galleryDotsContainer = document.getElementById('gallery-dots');
+
+            if (galleryTrack && galleryPrev && galleryNext && galleryDotsContainer) {
+                let autoplayTimer = null;
+
+                const defaultTrabajos = [
+                    {
+                        imagen: "fachada.webp",
+                        alt: "Limpieza Residencial Fachada",
+                        categoria: { es: "Fachadas", en: "Facades" },
+                        titulo: { es: "Limpieza de Fachada Completa", en: "Complete Facade Washing" },
+                        subtitulo: { es: "Eliminación profunda de moho y suciedad", en: "Deep mold and grime removal" }
+                    },
+                    {
+                        imagen: "limpiando-techo.webp",
+                        alt: "Mantenimiento Techos",
+                        categoria: { es: "Techos", en: "Roofs" },
+                        titulo: { es: "Mantenimiento y Lavado de Techo", en: "Roof Maintenance & Washing" },
+                        subtitulo: { es: "Soft Wash para máxima protección de tejas", en: "Soft Wash method to protect shingles" }
+                    },
+                    {
+                        imagen: "Drivewayclean.webp",
+                        alt: "Lavado Concreto Aceras Impecable",
+                        categoria: { es: "Concreto", en: "Concrete" },
+                        titulo: { es: "Lavado de Hormigón de Entrada", en: "Driveway Concrete Power Wash" },
+                        subtitulo: { es: "Remoción de manchas de aceite y moho", en: "Oil stain and mold removal" }
+                    },
+                    {
+                        imagen: "cleaning-office.webp",
+                        alt: "Servicios Limpieza Comercial",
+                        categoria: { es: "Comercial", en: "Commercial" },
+                        titulo: { es: "Edificios y Oficinas Comerciales", en: "Commercial Offices & Buildings" },
+                        subtitulo: { es: "Acabado profesional de alto impacto", en: "High-impact corporate finish" }
+                    }
+                ];
+
+                const renderTrabajosCards = (items) => {
+                    galleryTrack.innerHTML = '';
+                    items.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'gallery-carousel-item';
+                        card.innerHTML = `
+                            <div class="gallery-item-outer">
+                                <div class="gallery-item">
+                                    <span class="gallery-badge">
+                                        <span class="lang-es">${item.categoria?.es || ''}</span>
+                                        <span class="lang-en">${item.categoria?.en || item.categoria?.es || ''}</span>
+                                    </span>
+                                    <img src="${item.imagen}" alt="${item.alt || ''}" loading="lazy">
+                                    <div class="gallery-overlay">
+                                        <h3>
+                                            <span class="lang-es">${item.titulo?.es || ''}</span>
+                                            <span class="lang-en">${item.titulo?.en || item.titulo?.es || ''}</span>
+                                        </h3>
+                                        <p class="gallery-sub">
+                                            <span class="lang-es">${item.subtitulo?.es || ''}</span>
+                                            <span class="lang-en">${item.subtitulo?.en || item.subtitulo?.es || ''}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        galleryTrack.appendChild(card);
+                    });
+                };
+
+                const setupCarouselEvents = () => {
+                    const cards = galleryTrack.querySelectorAll('.gallery-carousel-item');
+                    const totalItems = cards.length;
+                    if (totalItems === 0) return;
+
+                    // Crear dots dinámicos
+                    galleryDotsContainer.innerHTML = '';
+                    cards.forEach((_, idx) => {
+                        const dot = document.createElement('button');
+                        dot.type = 'button';
+                        dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+                        dot.setAttribute('aria-label', `Ir a trabajo ${idx + 1}`);
+                        dot.onclick = () => {
+                            scrollToIndex(idx);
+                            resetAutoplay();
+                        };
+                        galleryDotsContainer.appendChild(dot);
+                    });
+
+                    const dots = galleryDotsContainer.querySelectorAll('.carousel-dot');
+
+                    const updateActiveDot = (activeIdx) => {
+                        dots.forEach((dot, idx) => {
+                            dot.classList.toggle('active', idx === activeIdx);
+                        });
+                    };
+
+                    const getScrollStep = () => {
+                        const firstCard = cards[0];
+                        if (!firstCard) return 300;
+                        const style = window.getComputedStyle(galleryTrack);
+                        const gap = parseFloat(style.gap) || 24;
+                        return firstCard.getBoundingClientRect().width + gap;
+                    };
+
+                    const getCurrentIndex = () => {
+                        const step = getScrollStep();
+                        if (step <= 0) return 0;
+                        return Math.round(galleryTrack.scrollLeft / step);
+                    };
+
+                    const scrollToIndex = (idx) => {
+                        const step = getScrollStep();
+                        galleryTrack.scrollTo({
+                            left: idx * step,
+                            behavior: 'smooth'
+                        });
+                        updateActiveDot(Math.min(idx, totalItems - 1));
+                    };
+
+                    galleryNext.onclick = () => {
+                        const step = getScrollStep();
+                        const maxScroll = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+                        if (galleryTrack.scrollLeft >= maxScroll - 15) {
+                            galleryTrack.scrollTo({ left: 0, behavior: 'smooth' });
+                        } else {
+                            galleryTrack.scrollBy({ left: step, behavior: 'smooth' });
+                        }
+                        resetAutoplay();
+                    };
+
+                    galleryPrev.onclick = () => {
+                        const step = getScrollStep();
+                        if (galleryTrack.scrollLeft <= 15) {
+                            const maxScroll = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+                            galleryTrack.scrollTo({ left: maxScroll, behavior: 'smooth' });
+                        } else {
+                            galleryTrack.scrollBy({ left: -step, behavior: 'smooth' });
+                        }
+                        resetAutoplay();
+                    };
+
+                    // Actualizar dot activo al hacer scroll
+                    let scrollTimeout = null;
+                    galleryTrack.onscroll = () => {
+                        if (scrollTimeout) clearTimeout(scrollTimeout);
+                        scrollTimeout = setTimeout(() => {
+                            const currentIdx = Math.min(Math.max(0, getCurrentIndex()), totalItems - 1);
+                            updateActiveDot(currentIdx);
+                        }, 50);
+                    };
+
+                    // Arrastre con mouse en PC
+                    let isMouseDown = false;
+                    let startX = 0;
+                    let scrollStart = 0;
+
+                    galleryTrack.onmousedown = (e) => {
+                        isMouseDown = true;
+                        startX = e.pageX - galleryTrack.offsetLeft;
+                        scrollStart = galleryTrack.scrollLeft;
+                        stopAutoplay();
+                    };
+
+                    window.addEventListener('mouseup', () => {
+                        if (isMouseDown) {
+                            isMouseDown = false;
+                            resetAutoplay();
+                        }
+                    });
+
+                    galleryTrack.onmousemove = (e) => {
+                        if (!isMouseDown) return;
+                        e.preventDefault();
+                        const x = e.pageX - galleryTrack.offsetLeft;
+                        const walk = (x - startX) * 1.3;
+                        galleryTrack.scrollLeft = scrollStart - walk;
+                    };
+
+                    // Autoplay
+                    const startAutoplay = () => {
+                        if (autoplayTimer) clearInterval(autoplayTimer);
+                        autoplayTimer = setInterval(() => {
+                            const step = getScrollStep();
+                            const maxScroll = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+                            if (galleryTrack.scrollLeft >= maxScroll - 15) {
+                                galleryTrack.scrollTo({ left: 0, behavior: 'smooth' });
+                            } else {
+                                galleryTrack.scrollBy({ left: step, behavior: 'smooth' });
+                            }
+                        }, 4500);
+                    };
+
+                    const stopAutoplay = () => {
+                        if (autoplayTimer) {
+                            clearInterval(autoplayTimer);
+                            autoplayTimer = null;
+                        }
+                    };
+
+                    const resetAutoplay = () => {
+                        stopAutoplay();
+                        startAutoplay();
+                    };
+
+                    galleryTrack.onmouseenter = stopAutoplay;
+                    galleryTrack.onmouseleave = startAutoplay;
+                    galleryTrack.ontouchstart = stopAutoplay;
+                    galleryTrack.ontouchend = startAutoplay;
+
+                    startAutoplay();
+                };
+
+                // Cargar datos de trabajos.json con fallback automático
+                const loadTrabajosData = async () => {
+                    let items = defaultTrabajos;
+                    try {
+                        const response = await fetch('./trabajos.json', { cache: 'no-store' });
+                        if (response.ok) {
+                            const data = await response.json();
+                            if (Array.isArray(data) && data.length > 0) {
+                                items = data;
+                            }
+                        }
+                    } catch (_) {
+                        // En caso de error de red o file:// sin servidor, usa defaultTrabajos
+                    }
+                    renderTrabajosCards(items);
+                    setupCarouselEvents();
+                };
+
+                loadTrabajosData();
             }
 
             // 6. Reveal Animations (Intersection Observer)
